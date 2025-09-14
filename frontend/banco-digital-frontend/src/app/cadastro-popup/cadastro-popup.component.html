@@ -1,0 +1,75 @@
+<div class="popup-overlay" [class.show]="showPopup">
+  <div class="popup-content glassmorphism">
+    <div class="carousel-container">
+      <form [formGroup]="cadastroForm" class="popup-form" [style.transform]="transformStyle">
+        <!-- Step 1: CPF -->
+        <div class="carousel-step" [class.active]="currentStep === 1">
+          <h2>Cadastro - Etapa 1 de 3</h2>
+          <div class="form-group">
+            <label for="cpf">CPF</label>
+            <input id="cpf" type="text" formControlName="cpf" placeholder="Digite seu CPF (apenas números)" required>
+          </div>
+          <div class="button-group">
+            <button type="button" (click)="nextStep()" class="btn-next" [disabled]="cadastroForm.get('cpf')?.invalid">Próximo</button>
+          </div>
+        </div>
+
+        <!-- Step 2: Nome e Endereço -->
+        <div class="carousel-step" [class.active]="currentStep === 2">
+          <h2>Cadastro - Etapa 2 de 3</h2>
+          <div class="form-group">
+            <label for="nome">Nome Completo</label>
+            <input id="nome" type="text" formControlName="nome" placeholder="Digite seu nome completo" required>
+          </div>
+          <div class="form-group">
+            <label for="endereco">Endereço</label>
+            <input id="endereco" type="text" formControlName="endereco" placeholder="Digite seu endereço" required>
+          </div>
+          <div class="form-group">
+            <label for="telefone">Telefone</label>
+            <input id="telefone" type="text" formControlName="telefone" placeholder="Digite seu telefone" required>
+          </div>
+          <div class="form-group">
+            <label for="email">E-mail</label>
+            <input id="email" type="email" formControlName="email" placeholder="Digite seu e-mail" required>
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn-back" (click)="prevStep()">Voltar</button>
+            <button type="button" (click)="nextStep()" class="btn-next" [disabled]="cadastroForm.get('nome')?.invalid || cadastroForm.get('endereco')?.invalid || cadastroForm.get('telefone')?.invalid || cadastroForm.get('email')?.invalid">Próximo</button>
+          </div>
+        </div>
+
+        <!-- Step 3: Senha -->
+        <div class="carousel-step" [class.active]="currentStep === 3">
+          <h2>Cadastro - Etapa 3 de 3</h2>
+          <div class="form-group">
+            <label for="senha">Senha</label>
+            <input id="senha" type="password" formControlName="senha" placeholder="Crie sua senha" required>
+          </div>
+          <div class="form-group">
+            <label for="confirmarSenha">Confirmar Senha</label>
+            <input id="confirmarSenha" type="password" formControlName="confirmarSenha" placeholder="Confirme sua senha" required>
+          </div>
+          <div class="button-group">
+            <button type="button" class="btn-back" (click)="prevStep()">Voltar</button>
+            <button type="button" (click)="submitCadastro()" class="btn-submit" [disabled]="cadastroForm.invalid">Finalizar Cadastro</button>
+          </div>
+        </div>
+      </form>
+
+      <div *ngIf="errorMessage" class="error-message">
+        {{ errorMessage }}
+      </div>
+    </div>
+    <button (click)="closePopup()" class="btn-close">X</button>
+  </div>
+</div>
+
+<!-- Pop-up de Sucesso -->
+<div class="success-popup" *ngIf="showSuccessPopup">
+  <div class="success-content glassmorphism">
+    <h2>Cadastro Realizado!</h2>
+    <p>Seu cadastro foi enviado para análise. Você será notificado quando for aprovado.</p>
+    <button (click)="closeSuccessPopup()" class="btn-close">Ok</button>
+  </div>
+</div>

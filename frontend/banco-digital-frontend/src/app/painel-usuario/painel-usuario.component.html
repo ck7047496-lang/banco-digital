@@ -1,0 +1,147 @@
+<!-- Container principal com animação de entrada -->
+<!-- Container principal com animação de entrada -->
+<div class="dashboard-container" *ngIf="usuario && usuario.status === 'ATIVO'">
+
+  <!-- Header do Painel -->
+  <header class="dashboard-header">
+    <div class="logo">
+      <span>BANCO</span>DIGITAL
+    </div>
+    <div class="user-menu">
+      <span class="welcome-message">Olá, {{ usuario.nome }}</span>
+      <button class="logout-button" (click)="logout()">Sair</button>
+    </div>
+  </header>
+
+  <!-- Conteúdo principal do painel -->
+  <main class="dashboard-main">
+
+    <!-- Seção de cards de resumo -->
+    <section class="summary-cards">
+      <!-- Card de Saldo -->
+      <div class="card glass-effect rounded-2xl shadow-lg">
+        <div class="card-header">
+          <span>Saldo em Conta</span>
+        </div>
+        <div class="card-body">
+          <p class="balance">{{ usuario.saldo | currency:'BRL' }}</p>
+        </div>
+      </div>
+
+      <!-- Card de Limite de Crédito -->
+      <div class="card glass-effect rounded-2xl shadow-lg">
+        <div class="card-header">
+          <span>Limite de Crédito</span>
+        </div>
+        <div class="card-body">
+          <p class="credit-limit" [ngClass]="{'approved': usuario.situacaoCredito === 'APROVADO', 'unavailable': usuario.situacaoCredito !== 'APROVADO'}">
+            {{ usuario.situacaoCredito === 'APROVADO' ? (usuario.limiteCredito | currency:'BRL') : 'Indisponível' }}
+          </p>
+        </div>
+      </div>
+
+      <!-- Card de Última Movimentação (Exemplo) -->
+      <div class="card glass-effect rounded-2xl shadow-lg">
+        <div class="card-header">
+          <span>Última Movimentação</span>
+        </div>
+        <div class="card-body">
+          <p class="last-transaction">Pix Recebido: R$ 250,00</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Seção de Ações Rápidas -->
+    <section class="quick-actions">
+      <h3 class="section-title">Ações Rápidas</h3>
+      <div class="actions-grid">
+        <button class="action-button" *ngIf="usuario?.situacaoCredito === 'APROVADO'" (click)="showLoanForm = true">
+          <span>Solicitar Empréstimo</span>
+        </button>
+        <button class="action-button">
+          <span>Ver Extrato</span>
+        </button>
+        <button class="action-button">
+          <span>Meus Cartões</span>
+        </button>
+        <button class="action-button">
+          <span>Configurações</span>
+        </button>
+      </div>
+    </section>
+
+    <!-- Formulário de Solicitação de Empréstimo -->
+    <section class="loan-request-section" *ngIf="showLoanForm">
+      <h3 class="section-title">Solicitar Empréstimo</h3>
+      <div class="form-container glass-effect rounded-2xl shadow-lg">
+        <div class="form-group">
+          <label for="valorEmprestimo">Valor do Empréstimo (R$100,00 - R$10.000,00):</label>
+          <input type="number" id="valorEmprestimo" [(ngModel)]="valorEmprestimo" (input)="simularEmprestimo()" min="100" max="10000" placeholder="Ex: 1000.00">
+        </div>
+        <div class="form-group">
+          <label for="parcelasEmprestimo">Número de Parcelas (até 24):</label>
+          <input type="number" id="parcelasEmprestimo" [(ngModel)]="parcelasEmprestimo" (input)="simularEmprestimo()" min="1" max="24" placeholder="Ex: 12">
+        </div>
+        <div *ngIf="valorTotalSimulado > 0" class="resultado-card">
+          <h3>Detalhes da Simulação</h3>
+          <p><strong>Valor solicitado:</strong> {{ valorEmprestimo | currency:'BRL' }}</p>
+          <p><strong>Parcelas escolhidas:</strong> {{ parcelasEmprestimo }}</p>
+          <p><strong>Juros aplicados:</strong> {{ jurosAplicadosSimulados * 100 | number:'1.2-2' }}% ao mês</p>
+          <p><strong>Total com juros:</strong> {{ valorTotalSimulado | currency:'BRL' }}</p>
+          <p><strong>Valor de cada parcela:</strong> {{ valorParcelaSimulada | currency:'BRL' }}</p>
+        </div>
+ 
+        <button class="btn-solicitar-emprestimo" (click)="abrirConfirmacaoEmprestimo()">Solicitar Empréstimo</button>
+        <p *ngIf="mensagemEmprestimo" class="success-message">{{ mensagemEmprestimo }}</p>
+        <p *ngIf="erroEmprestimo" class="error-message">{{ erroEmprestimo }}</p>
+      </div>
+    </section>
+
+    <!-- Pop-up de Confirmação de Empréstimo -->
+    <div class="popup-overlay" *ngIf="showConfirmacaoEmprestimoPopup">
+      <div class="popup-card glass-effect rounded-2xl shadow-lg">
+        <h3>Confirmar Solicitação de Empréstimo</h3>
+        <p>Você deseja confirmar a solicitação de empréstimo no valor de <strong>{{ valorEmprestimo | currency:'BRL' }}</strong> em <strong>{{ parcelasEmprestimo }} parcelas</strong>?</p>
+        <div class="popup-actions">
+          <button class="btn-confirmar" (click)="confirmarSolicitacaoEmprestimo()">Confirmar</button>
+          <button class="btn-cancelar" (click)="cancelarSolicitacao()">Cancelar</button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Histórico de Empréstimos -->
+    <section class="loan-history-section">
+      <h3 class="section-title">Meus Empréstimos</h3>
+      <div class="history-container glass-effect rounded-2xl shadow-lg">
+        <div *ngIf="emprestimos.length === 0" class="no-loans">
+          <p>Nenhum empréstimo encontrado.</p>
+        </div>
+        <div *ngFor="let emprestimo of emprestimos" class="loan-item">
+          <p><strong>Valor solicitado:</strong> {{ emprestimo.valor | currency:'BRL' }}</p>
+          <p><strong>Parcelas escolhidas:</strong> {{ emprestimo.parcelas }}</p>
+          <p><strong>Total com juros:</strong> {{ emprestimo.valorTotal | currency:'BRL' }}</p>
+          <p><strong>Valor de cada parcela:</strong> {{ emprestimo.valorParcela | currency:'BRL' }}</p>
+          <p><strong>Data da Solicitação:</strong> {{ emprestimo.dataSolicitacao | date:'shortDate' }}</p>
+          <p><strong>Status:</strong> <span [ngClass]="{'status-aprovado': emprestimo.status === 'APROVADO', 'status-pendente': emprestimo.status === 'PENDENTE', 'status-negado': emprestimo.status === 'NEGADO'}">
+            {{ emprestimo.status }}
+          </span></p>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+
+<!-- Tela de Carregamento ou Aguardando Análise -->
+<div *ngIf="!usuario" class="loading-container">
+  <p>Carregando dados do usuário...</p>
+</div>
+
+<div *ngIf="usuario && usuario.status !== 'ATIVO'" class="awaiting-approval-container">
+  <div class="awaiting-approval-card">
+    <h2>Sua conta está aguardando análise!</h2>
+    <p>Seu cadastro está em processo de verificação. Por favor, aguarde a aprovação de um gerente para acessar todas as funcionalidades.</p>
+    <p>Status atual: <strong>{{ usuario.status }}</strong></p>
+    <button class="logout-button" (click)="logout()">Sair</button>
+  </div>
+</div>

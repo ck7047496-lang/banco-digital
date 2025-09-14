@@ -1,0 +1,214 @@
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.5s ease, visibility 0.5s ease;
+  backdrop-filter: blur(5px);
+
+  &.show {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+.popup-content {
+  background: rgba(30, 30, 47, 0.9);
+  padding: 2.5rem;
+  border-radius: 15px;
+  width: 100%;
+  max-width: 450px;
+  text-align: center;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #e0e0e0;
+  position: relative;
+}
+
+.carousel-container {
+  width: 100%;
+  overflow: hidden; /* Esconde as etapas que não estão ativas */
+}
+
+.popup-form {
+  display: flex;
+  width: 300%; /* Largura total para as 3 etapas */
+  transition: transform 0.6s cubic-bezier(0.68, -0.55, 0.27, 1.55); /* Transição suave */
+}
+
+.carousel-step {
+  width: calc(100% / 3); /* Cada etapa ocupa 1/3 do espaço do formulário */
+  flex-shrink: 0;
+  padding: 0 15px;
+  box-sizing: border-box;
+  
+  h2 {
+    font-size: 1.8em;
+    margin-bottom: 2rem;
+    color: #a991d4;
+    font-weight: bold;
+  }
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+  text-align: left;
+
+  label {
+    display: block;
+    margin-bottom: 0.5rem;
+    color: #c0c0c0;
+    font-size: 0.9rem;
+  }
+
+  input {
+    width: 100%;
+    padding: 1rem;
+    border: 1px solid #4a2c6f;
+    border-radius: 8px;
+    font-size: 1rem;
+    background-color: rgba(255, 255, 255, 0.05);
+    color: #e0e0e0;
+    transition: border-color 0.3s, box-shadow 0.3s;
+
+    &:focus {
+      outline: none;
+      border-color: #a991d4;
+      box-shadow: 0 0 10px rgba(169, 145, 212, 0.3);
+    }
+  }
+}
+
+.button-group {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 2rem;
+  gap: 1rem;
+}
+
+.btn-next,
+.btn-submit,
+.btn-back {
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  text-transform: uppercase;
+  flex-grow: 1;
+}
+
+.btn-next, .btn-submit {
+  background: linear-gradient(45deg, #7f00ff, #e100ff);
+  color: white;
+  box-shadow: 0 4px 15px rgba(225, 0, 255, 0.4);
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 25px rgba(225, 0, 255, 0.6);
+  }
+
+  &:disabled {
+    background: #555;
+    box-shadow: none;
+    cursor: not-allowed;
+    transform: none;
+  }
+}
+
+.btn-back {
+  background-color: transparent;
+  color: #a991d4;
+  border: 1px solid #a991d4;
+
+  &:hover {
+    background-color: #a991d4;
+    color: #1e1e2f;
+  }
+}
+
+.btn-close {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  color: #fff;
+  font-size: 1.5rem;
+  cursor: pointer;
+  line-height: 1;
+}
+
+.error-message {
+  color: #ff4d4d;
+  font-size: 0.9rem;
+  text-align: center;
+  margin-top: 1rem;
+  height: 1rem;
+}
+
+.success-popup {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.8);
+  backdrop-filter: blur(10px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1001;
+
+  .success-content {
+    background: linear-gradient(145deg, #1e1e2f, #27273d);
+    border-radius: 15px;
+    padding: 3rem;
+    text-align: center;
+    color: #e0e0e0;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.5);
+    width: 90%;
+    max-width: 500px;
+
+    h2 {
+      font-size: 2.2em;
+      color: #a991d4;
+      margin-bottom: 1rem;
+    }
+
+    p {
+      font-size: 1.2em;
+      margin-bottom: 2rem;
+    }
+
+    .btn-close {
+      padding: 1rem 2rem;
+      border: none;
+      border-radius: 8px;
+      font-size: 1.1rem;
+      cursor: pointer;
+      background: linear-gradient(45deg, #7f00ff, #e100ff);
+      color: white;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 15px rgba(225, 0, 255, 0.4);
+      text-transform: uppercase;
+      font-weight: bold;
+
+      &:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 8px 25px rgba(225, 0, 255, 0.6);
+      }
+    }
+  }
+}

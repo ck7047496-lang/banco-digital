@@ -1,0 +1,15 @@
+.loan-illustration {
+  text-align: center;
+  margin: 40px 0;
+}
+
+.loan-illustration img {
+  max-width: 100%;
+  height: auto;
+}
+
+.loan-illustration p {
+  font-size: 18px;
+  font-weight: bold;
+  margin-top: 10px;
+}

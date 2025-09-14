@@ -1,0 +1,466 @@
+/* Importando a fonte Poppins do Google Fonts */
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&display=swap');
+
+/* Variáveis CSS para cores e gradientes */
+:root {
+  --bg-dark: #1a1a2e;
+  --card-bg: rgba(255, 255, 255, 0.05);
+  --text-primary: #e0e0e0;
+  --text-secondary: #c9a0dc;
+  --brand-purple: #a991d4;
+  --border-gradient: linear-gradient(45deg, #7f00ff, #e100ff);
+}
+
+/* Estilo do container principal do painel */
+.dashboard-container {
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+  background-color: var(--bg-dark);
+  font-family: 'Poppins', sans-serif;
+  padding: 2rem;
+  padding-top: 8rem; /* Espaço para o header fixo */
+  box-sizing: border-box;
+  opacity: 0;
+  animation: fadeIn 0.8s ease-out forwards;
+}
+
+/* Animação de entrada */
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+  }
+}
+
+/* Header */
+.dashboard-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  width: 100%;
+  margin-bottom: 3rem;
+  position: fixed;
+  top: 0;
+  left: 0;
+  padding: 2rem;
+  background-color: var(--bg-dark);
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+}
+
+.logo {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--text-primary);
+}
+
+.logo span {
+  color: var(--brand-purple);
+}
+
+.user-menu {
+  display: flex;
+  align-items: center;
+  gap: 1.5rem;
+}
+
+.welcome-message {
+  color: var(--text-secondary);
+}
+
+.logout-button {
+  background: transparent;
+  border: 1px solid var(--brand-purple);
+  color: var(--brand-purple);
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.logout-button:hover {
+  background-color: var(--brand-purple);
+  color: white;
+  box-shadow: 0 0 15px rgba(124, 58, 237, 0.5);
+}
+
+/* Conteúdo Principal */
+.dashboard-main {
+  width: 100%;
+}
+
+/* Seção de Cards */
+.summary-cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+}
+
+.card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 1.5rem;
+  position: relative;
+  overflow: hidden;
+  border: 1px solid transparent;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+/* Efeito Glassmorphism */
+.glass-effect {
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+}
+
+/* Borda com gradiente */
+.card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: 16px;
+  padding: 1px;
+  background: var(--border-gradient);
+  -webkit-mask:
+    linear-gradient(#fff 0 0) content-box,
+    linear-gradient(#fff 0 0);
+  -webkit-mask-composite: destination-out;
+  mask-composite: exclude;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 40px 0 rgba(0, 0, 0, 0.3);
+}
+
+.card-header {
+  color: var(--text-secondary);
+  margin-bottom: 1rem;
+}
+
+.card-body .balance {
+  font-size: 2.5rem;
+  font-weight: 600;
+  color: var(--text-primary);
+}
+
+.card-body .credit-limit,
+.card-body .last-transaction {
+  font-size: 1.5rem;
+  font-weight: 500;
+}
+
+.credit-limit.approved {
+  color: #4ade80; /* Verde */
+}
+
+.credit-limit.unavailable {
+  color: #f87171; /* Vermelho */
+}
+
+/* Seção de Ações Rápidas */
+.quick-actions .section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.actions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.action-button {
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  padding: 1.5rem;
+  border-radius: 12px;
+  text-align: left;
+  font-size: 1rem;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.action-button:hover {
+  background-color: var(--brand-purple);
+  border-color: var(--brand-purple);
+  transform: translateY(-3px);
+  box-shadow: 0 0 20px rgba(124, 58, 237, 0.6);
+}
+
+/* Formulário de Solicitação de Empréstimo */
+.loan-request-section {
+  margin-bottom: 3rem;
+}
+
+.loan-request-section .section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.form-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.form-group {
+  margin-bottom: 1.5rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-secondary);
+}
+
+.form-group input {
+  width: 100%;
+  padding: 0.8rem;
+  border-radius: 8px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+  font-size: 1rem;
+}
+
+.form-group input:focus {
+  outline: none;
+  border-color: var(--brand-purple);
+  box-shadow: 0 0 10px rgba(124, 58, 237, 0.4);
+}
+
+.resultado-card {
+  background-color: rgba(255, 255, 255, 0.1);
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-top: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.resultado-card h3 {
+  color: var(--brand-purple);
+  margin-bottom: 1rem;
+}
+
+.resultado-card p {
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.btn-solicitar-emprestimo {
+  background: var(--border-gradient);
+  color: white;
+  padding: 1rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  margin-top: 1.5rem;
+  box-shadow: 0 4px 15px rgba(225, 0, 255, 0.4);
+}
+
+.btn-solicitar-emprestimo:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(225, 0, 255, 0.6);
+}
+
+.success-message, .error-message {
+  margin-top: 1.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  text-align: center;
+  font-weight: 500;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.success-message {
+  color: #4ade80; /* Verde */
+  background-color: rgba(74, 222, 128, 0.1);
+  border: 1px solid rgba(74, 222, 128, 0.2);
+}
+
+.error-message {
+  color: #f87171; /* Vermelho */
+  background-color: rgba(248, 113, 113, 0.1);
+  border: 1px solid rgba(248, 113, 113, 0.2);
+}
+
+.success-message::before, .error-message::before {
+  content: '';
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.success-message::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="%234ade80" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>');
+}
+
+.error-message::before {
+  background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="%23f87171" class="w-6 h-6"><path stroke-linecap="round" stroke-linejoin="round" d="M12 9v3.75m-9.303 3.376c-.866 1.5.217 3.374 1.948 3.374h14.71c1.73 0 2.813-1.874 1.948-3.374L13.949 3.378c-.866-1.5-3.032-1.5-3.898 0L2.697 16.126zM12 15.75h.007v.008H12v-.008z" /></svg>');
+}
+
+/* Histórico de Empréstimos */
+.loan-history-section .section-title {
+  font-size: 1.5rem;
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+}
+
+.history-container {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.2);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+}
+
+.no-loans {
+  text-align: center;
+  color: var(--text-secondary);
+  font-style: italic;
+}
+
+.loan-item {
+  background-color: rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+  padding: 1.2rem;
+  margin-bottom: 1rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.loan-item:hover {
+  transform: translateY(-3px);
+}
+
+.loan-item p {
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+}
+
+.loan-item strong {
+  color: var(--text-secondary);
+}
+
+.loan-item .status-aprovado {
+  color: #4ade80;
+  font-weight: bold;
+}
+
+.loan-item .status-pendente {
+  color: #facc15;
+  font-weight: bold;
+}
+
+.loan-item .status-rejeitado {
+  color: #f87171;
+  font-weight: bold;
+}
+
+/* Tela de Carregamento */
+.loading-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  font-size: 1.5rem;
+  color: var(--text-primary);
+}
+
+/* Estilos para o Pop-up de Confirmação */
+.popup-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1000;
+}
+
+.popup-card {
+  background: var(--card-bg);
+  border-radius: 16px;
+  padding: 2rem;
+  text-align: center;
+  color: var(--text-primary);
+  max-width: 400px;
+  width: 90%;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.popup-card h3 {
+  color: var(--brand-purple);
+  margin-bottom: 1rem;
+  font-size: 1.5rem;
+}
+
+.popup-card p {
+  margin-bottom: 1.5rem;
+  font-size: 1rem;
+}
+
+.popup-actions {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+}
+
+.btn-confirmar, .btn-cancelar {
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.btn-confirmar {
+  background: var(--border-gradient);
+  color: white;
+  border: none;
+  box-shadow: 0 4px 15px rgba(225, 0, 255, 0.4);
+}
+
+.btn-confirmar:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 25px rgba(225, 0, 255, 0.6);
+}
+
+.btn-cancelar {
+  background: transparent;
+  border: 1px solid var(--text-secondary);
+  color: var(--text-secondary);
+}
+
+.btn-cancelar:hover {
+  background-color: rgba(255, 255, 255, 0.1);
+  color: var(--text-primary);
+}

@@ -1,0 +1,19 @@
+<div class="cadastro-gerente-container">
+  <div class="cadastro-gerente-box glassmorphism">
+    <h2>Cadastro de Gerente</h2>
+    <form [formGroup]="cadastroGerenteForm" (ngSubmit)="cadastrarGerente()" class="cadastro-gerente-form">
+      <div class="form-group">
+        <label for="nome">Nome</label>
+        <input id="nome" type="text" formControlName="nome" placeholder="Nome do Gerente" required>
+      </div>
+      <div class="form-group">
+        <label for="senha">Senha</label>
+        <input id="senha" type="password" formControlName="senha" placeholder="Senha do Gerente" required>
+      </div>
+      <button type="submit" [disabled]="cadastroGerenteForm.invalid" class="btn-submit">Cadastrar Gerente</button>
+    </form>
+    <div *ngIf="mensagem" class="mensagem">
+      {{ mensagem }}
+    </div>
+  </div>
+</div>

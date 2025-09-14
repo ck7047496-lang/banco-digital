@@ -5,9 +5,27 @@
   <title>BancoDigitalFrontend</title>
   <base href="/">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" type="image/x-icon" href="favicon.ico">
+  <link rel="icon" type="image/x-icon" href="assets/icons/favicon.ico">
+  <style>
+    body {
+      opacity: 0;
+      transition: opacity 1s ease-in-out;
+    }
+    body.fade-in {
+      opacity: 1;
+    }
+  </style>
 </head>
-<body>
+<body class="fade-in">
   <app-root></app-root>
+  <script
+  async
+  src="https://app.rosana.io/widget/3E6394FCFFE8C042F441A692EC7A1340/float.js">
+</script>
+<script>
+    document.addEventListener('DOMContentLoaded', (event) => {
+      document.body.classList.add('fade-in');
+    });
+  </script>
 </body>
 </html>

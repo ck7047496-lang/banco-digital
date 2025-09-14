@@ -1,45 +1,88 @@
 package com.banco.bancodigital.controller;
 
-import com.banco.bancodigital.config.JwtUtil;
-import com.banco.bancodigital.dto.AuthRequest;
-import com.banco.bancodigital.dto.AuthResponse;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.banco.bancodigital.dtos.AuthRequest;
+import com.banco.bancodigital.dtos.AuthResponse;
+import com.banco.bancodigital.dtos.RegisterGerenteRequest;
+import com.banco.bancodigital.dtos.RegisterRequest;
+import com.banco.bancodigital.model.Usuario;
+import com.banco.bancodigital.repository.UsuarioRepository;
+import com.banco.bancodigital.security.JwtService;
+import com.banco.bancodigital.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
+
+import java.util.Optional;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api/auth")
+@RequestMapping("/auth")
 public class AuthController {
 
-    @Autowired
-    private AuthenticationManager authenticationManager;
+    private final UsuarioService usuarioService;
+    private final JwtService jwtService;
+    private final AuthenticationManager authenticationManager;
+    private final UsuarioRepository usuarioRepository;
+    private final PasswordEncoder passwordEncoder;
 
-    @Autowired
-    private UserDetailsService userDetailsService;
+    public AuthController(UsuarioService usuarioService, JwtService jwtService, AuthenticationManager authenticationManager, UsuarioRepository usuarioRepository, PasswordEncoder passwordEncoder) {
+        this.usuarioService = usuarioService;
+        this.jwtService = jwtService;
+        this.authenticationManager = authenticationManager;
+        this.usuarioRepository = usuarioRepository;
+        this.passwordEncoder = passwordEncoder;
+    }
 
-    @Autowired
-    private JwtUtil jwtUtil;
+    @PostMapping("/register")
+    public ResponseEntity<Usuario> register(@RequestBody RegisterRequest request) {
+        Usuario newUser = usuarioService.registerNewUser(request);
+        return ResponseEntity.ok(newUser);
+    }
+
+    @PostMapping("/register/gerente")
+    public ResponseEntity<Usuario> registerGerente(@RequestBody RegisterGerenteRequest request) {
+        Usuario newGerente = usuarioService.registerNewUser(request);
+        return ResponseEntity.ok(newGerente);
+    }
 
     @PostMapping("/login")
-    public ResponseEntity<AuthResponse> createAuthenticationToken(@RequestBody AuthRequest authRequest) throws Exception {
-        try {
-            authenticationManager.authenticate(
-                    new UsernamePasswordAuthenticationToken(authRequest.getCpf(), authRequest.getSenha())
-            );
-        } catch (Exception e) {
-            throw new Exception("CPF ou senha incorretos", e);
+    public ResponseEntity<AuthResponse> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
+        // Primeiro, tente encontrar o usuário pelo identificador (email ou CPF)
+        Usuario usuario = usuarioRepository.findByEmail(authRequest.getIdentifier())
+                .orElseGet(() -> usuarioRepository.findByCpf(authRequest.getIdentifier())
+                        .orElseThrow(() -> new UsernameNotFoundException("Usuário inexistente ou senha inválida")));
+        
+                System.out.println("Status do usuário encontrado para login: " + usuario.getStatus());
+
+        // Use o email do usuário encontrado para a autenticação
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuario.getEmail(), authRequest.getSenha()));
+
+        if (authentication.isAuthenticated()) {
+            // Após a autenticação, o principal é o UserDetails retornado por CustomUserDetailsService
+            UserDetails userDetails = (UserDetails) authentication.getPrincipal();
+            String email = userDetails.getUsername(); // O email é o username no UserDetails
+
+            // Buscar o usuário completo para obter todos os dados (já temos o usuário, mas para garantir)
+            Usuario authenticatedUser = usuarioService.findByEmail(email)
+                    .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado após autenticação."));
+
+            if (authenticatedUser.getStatus() != com.banco.bancodigital.model.StatusUsuario.ATIVO) {
+                throw new UsernameNotFoundException("Usuário não está ativo. Status atual: " + authenticatedUser.getStatus().name());
+            }
+
+            final String token = jwtService.generateToken(email, authenticatedUser.getPapel().name());
+            return ResponseEntity.ok(new AuthResponse(token, authenticatedUser.getPapel().name(), authenticatedUser.getCpf(), authenticatedUser.getEmail(), authenticatedUser.getNome(), authenticatedUser.getStatus().name()));
+        } else {
+            throw new UsernameNotFoundException("Credenciais inválidas!");
         }
-
-        final UserDetails userDetails = userDetailsService.loadUserByUsername(authRequest.getCpf());
-        final String jwt = jwtUtil.generateToken(userDetails);
-
-        return ResponseEntity.ok(new AuthResponse(jwt));
     }
+
 }

@@ -1,0 +1,46 @@
+<div class="landing-page-container">
+  <header class="header">
+    <div class="logo">FUSTECH</div>
+    <nav class="nav-links">
+      <a class="nav-item" href="#">Home</a>
+      <a class="nav-item" href="#">Serviços</a>
+      <a class="nav-item" href="#">Contato</a>
+    </nav>
+  </header>
+
+  <main class="main-content">
+    <section class="hero-section">
+      <div class="hero-content">
+        <h1 class="hero-title">Bem-vindo ao FUSTECH</h1>
+        <p class="hero-subtitle">Seu banco digital para empréstimos rápidos e seguros.</p>
+        <ul class="bullets" aria-label="Diferenciais">
+          <li>Inicie de até R$10.000</li>
+          <li>Aprovação pelo gerente em tempo real</li>
+        </ul>
+        <div class="action-buttons">
+          <button class="btn-main btn-access" (click)="accessAccount()">Acessar Conta</button>
+          <button class="btn-main btn-create" (click)="createAccount()">Criar Conta</button>
+        </div>
+      </div>
+      <!-- Adicione uma imagem hero se desejar -->
+      <picture>
+        <img class="hero-image" src="assets/ilustri_landpage.png" alt="Ilustração de empréstimo" loading="lazy" width="600" height="400">
+      </picture>
+    </section>
+
+    <!-- Seções adicionais como info ou features podem ser adicionadas aqui -->
+  </main>
+
+  <footer class="footer">
+    <div class="footer-content">
+      <div class="footer-section">
+        <h3>Sobre Nós</h3>
+        <p>FUSTECH - Inovando o setor financeiro.</p>
+      </div>
+      <!-- Mais seções no footer se necessário -->
+    </div>
+    <div class="footer-bottom">
+      <p>© {{ currentYear }} FUSTECH. Todos os direitos reservados.</p>
+    </div>
+  </footer>
+</div>

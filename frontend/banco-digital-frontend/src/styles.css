@@ -1,1 +1,80 @@
-/* Você pode adicionar estilos globais a este arquivo e também importá-los para outros arquivos de estilo */
+/* Tailwind Directives */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Definição das variáveis de cor globais para o tema */
+:root {
+  --bg-gradient-start: #1a1a2e;
+  --bg-gradient-end: #16213e;
+  --light-effect-start: #6c63ff;
+  --light-effect-end: #00ddeb;
+  --shadow-color: rgba(0, 0, 0, 0.3);
+  --text-primary: #E6E6F0;
+  --text-secondary: #A8A8B3;
+  --glass-bg: rgba(26, 26, 46, 0.7); /* Fundo do vidro com um pouco da cor do tema */
+  --glass-border: rgba(255, 255, 255, 0.1);
+}
+
+/* Estilo de corpo com o fundo gradiente */
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, var(--bg-gradient-start), var(--bg-gradient-end));
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+}
+
+/* Efeito Glassmorphism com as especificações do plano */
+.glassmorphism {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 12px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 24px var(--shadow-color);
+}
+
+/* Efeito de luz para botões e elementos interativos */
+.light-effect {
+  background: linear-gradient(90deg, var(--light-effect-start), var(--light-effect-end));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.light-effect:hover {
+  transform: scale(1.05);
+  box-shadow: 0 10px 30px rgba(0, 221, 235, 0.3);
+}
+
+/* Animações */
+.fade-in {
+  animation: fadeIn 0.5s ease-in-out forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.fade-slide-in {
+  animation: fadeSlideIn 0.7s ease-out forwards;
+}
+
+@keyframes fadeSlideIn {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}

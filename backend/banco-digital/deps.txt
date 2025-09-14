@@ -1,0 +1,107 @@
+[INFO] Scanning for projects...
+[INFO] 
+[INFO] ----------------------< com.banco:banco-digital >-----------------------
+[INFO] Building banco-digital 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] --- dependency:3.6.1:tree (default-cli) @ banco-digital ---
+[INFO] com.banco:banco-digital:jar:0.0.1-SNAPSHOT
+[INFO] +- org.springframework.boot:spring-boot-starter-web:jar:3.2.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter:jar:3.2.5:compile (version managed from 3.2.5; scope not updated to compile)
+[INFO] |  |  +- org.springframework.boot:spring-boot:jar:3.2.5:compile (version managed from 3.2.5; scope not updated to compile)
+[INFO] |  |  |  +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  \- (org.springframework:spring-context:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  +- org.springframework.boot:spring-boot-starter-json:jar:3.2.5:compile (version managed from 3.2.5)
+[INFO] |  |  \- (org.springframework:spring-web:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  +- org.springframework:spring-web:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |  |  +- org.springframework:spring-beans:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |  |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  \- org.springframework:spring-webmvc:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |     +- (org.springframework:spring-aop:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- org.springframework:spring-context:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |     |  +- (org.springframework:spring-aop:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     |  +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     |  \- (org.springframework:spring-expression:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- org.springframework:spring-expression:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |     |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     \- (org.springframework:spring-web:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] +- org.springframework.boot:spring-boot-starter-data-jpa:jar:3.2.5:compile
+[INFO] |  +- org.springframework.boot:spring-boot-starter-aop:jar:3.2.5:compile (version managed from 3.2.5)
+[INFO] |  |  \- (org.springframework:spring-aop:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  +- org.springframework.boot:spring-boot-starter-jdbc:jar:3.2.5:compile (version managed from 3.2.5)
+[INFO] |  |  \- org.springframework:spring-jdbc:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |  |     +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |     +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |     \- (org.springframework:spring-tx:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  +- org.springframework.data:spring-data-jpa:jar:3.2.5:compile (version managed from 3.2.5)
+[INFO] |  |  +- org.springframework.data:spring-data-commons:jar:3.2.5:compile (version managed from 3.2.5)
+[INFO] |  |  |  +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  \- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- org.springframework:spring-orm:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |  |  |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  +- (org.springframework:spring-jdbc:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  \- (org.springframework:spring-tx:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aop:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- org.springframework:spring-tx:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |  |  |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  \- org.springframework:spring-aspects:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] +- org.springframework.boot:spring-boot-starter-security:jar:3.2.5:compile
+[INFO] |  +- org.springframework:spring-aop:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  +- org.springframework.security:spring-security-config:jar:6.2.4:compile (version managed from 6.2.4)
+[INFO] |  |  +- org.springframework.security:spring-security-core:jar:6.2.4:compile (version managed from 6.2.4)
+[INFO] |  |  |  +- (org.springframework:spring-aop:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  +- (org.springframework:spring-context:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  |  \- (org.springframework:spring-expression:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-aop:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  +- (org.springframework:spring-context:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  \- org.springframework.security:spring-security-web:jar:6.2.4:compile (version managed from 6.2.4)
+[INFO] |     +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-aop:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-context:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-expression:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     \- (org.springframework:spring-web:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] +- org.springframework.boot:spring-boot-starter-amqp:jar:3.2.5:compile
+[INFO] |  +- org.springframework:spring-messaging:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |  |  +- (org.springframework:spring-beans:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  \- org.springframework.amqp:spring-rabbit:jar:3.1.4:compile (version managed from 3.1.4)
+[INFO] |     +- org.springframework.amqp:spring-amqp:jar:3.1.4:compile (version managed from 3.1.4)
+[INFO] |     |  \- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-context:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-messaging:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     \- (org.springframework:spring-tx:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] +- org.springframework.boot:spring-boot-starter-websocket:jar:3.2.5:compile
+[INFO] |  +- (org.springframework:spring-messaging:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |  \- org.springframework:spring-websocket:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO] |     +- (org.springframework:spring-context:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     +- (org.springframework:spring-core:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] |     \- (org.springframework:spring-web:jar:6.1.6:compile - version managed from 6.1.6; omitted for duplicate)
+[INFO] \- org.springframework.boot:spring-boot-starter-test:jar:3.2.5:test
+[INFO]    +- org.springframework:spring-core:jar:6.1.6:compile (version managed from 6.1.6; scope not updated to compile)
+[INFO]    |  \- org.springframework:spring-jcl:jar:6.1.6:compile (version managed from 6.1.6)
+[INFO]    \- org.springframework:spring-test:jar:6.1.6:test (version managed from 6.1.6)
+[INFO]       \- (org.springframework:spring-core:jar:6.1.6:test - version managed from 6.1.6; omitted for duplicate)
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  6.018 s
+[INFO] Finished at: 2025-09-13T06:07:11-03:00
+[INFO] ------------------------------------------------------------------------

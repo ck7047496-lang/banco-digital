@@ -1,56 +1,78 @@
 package com.banco.bancodigital.controller;
 
-import com.banco.bancodigital.model.Cliente;
 import com.banco.bancodigital.model.Emprestimo;
-import com.banco.bancodigital.service.ClienteService;
+import com.banco.bancodigital.model.Usuario;
 import com.banco.bancodigital.service.EmprestimoService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.banco.bancodigital.service.UsuarioService;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
+import com.banco.bancodigital.model.StatusUsuario;
+import com.banco.bancodigital.model.StatusEmprestimo;
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/gerente")
+@RequestMapping("/api/admin")
 public class GerenteController {
 
-    @Autowired
-    private ClienteService clienteService;
+    private final UsuarioService usuarioService;
+    private final EmprestimoService emprestimoService;
 
-    @Autowired
-    private EmprestimoService emprestimoService;
-
-    @PutMapping("/clientes/aprovar/{cpf}")
-    public ResponseEntity<Cliente> aprovarCliente(@PathVariable String cpf) {
-        Cliente cliente = clienteService.buscarClientePorCpf(cpf)
-                .orElseThrow(() -> new RuntimeException("Cliente não encontrado."));
-        cliente.setAprovado(true);
-        return ResponseEntity.ok(clienteService.atualizarCliente(cliente));
+    public GerenteController(UsuarioService usuarioService, EmprestimoService emprestimoService) {
+        this.usuarioService = usuarioService;
+        this.emprestimoService = emprestimoService;
     }
 
-    @PutMapping("/emprestimos/aprovar/{id}")
+    @GetMapping("/usuarios")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
+    public ResponseEntity<List<Usuario>> listarTodosUsuariosParaGerente() {
+        List<Usuario> usuarios = usuarioService.findAllPendingAndActiveClients();
+        return ResponseEntity.ok(usuarios);
+    }
+
+    @PatchMapping("/usuarios/{id}/aprovar")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
+    public ResponseEntity<Usuario> aprovarUsuario(@PathVariable Long id) {
+        Usuario usuarioAprovado = usuarioService.approveClient(id);
+        return ResponseEntity.ok(usuarioAprovado);
+    }
+
+    @PatchMapping("/usuarios/{id}/recusar")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
+    public ResponseEntity<Usuario> recusarUsuario(@PathVariable Long id) {
+        Usuario usuarioRecusado = usuarioService.reproveClient(id);
+        return ResponseEntity.ok(usuarioRecusado);
+    }
+
+    @GetMapping("/emprestimos")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
+    public ResponseEntity<List<Emprestimo>> listarSolicitacoesEmprestimo(@RequestParam(required = false) StatusEmprestimo status) {
+        if (status == StatusEmprestimo.PENDENTE) { // Alterado de SOLICITADO para PENDENTE
+            List<Emprestimo> emprestimos = emprestimoService.findByStatus(StatusEmprestimo.PENDENTE); // Usar findByStatus
+            return ResponseEntity.ok(emprestimos);
+        } else if (status != null) {
+            // Se um status específico for fornecido (diferente de PENDENTE), filtre por ele
+            List<Emprestimo> emprestimos = emprestimoService.findByStatus(status);
+            return ResponseEntity.ok(emprestimos);
+        } else {
+            // Se nenhum status for fornecido, retorne todos os empréstimos
+            List<Emprestimo> emprestimos = emprestimoService.findAll(); // Usar findAll
+            return ResponseEntity.ok(emprestimos);
+        }
+    }
+
+    @PatchMapping("/emprestimos/{id}/aprovar")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
     public ResponseEntity<Emprestimo> aprovarEmprestimo(@PathVariable Long id) {
-        Emprestimo emprestimo = emprestimoService.aprovarEmprestimo(id);
-        // Lógica para adicionar o valor do empréstimo ao saldo do cliente
-        Cliente cliente = emprestimo.getCliente();
-        cliente.setSaldo(cliente.getSaldo() + emprestimo.getValor());
-        clienteService.atualizarCliente(cliente);
-        return ResponseEntity.ok(emprestimo);
+        Emprestimo emprestimoAprovado = emprestimoService.approveEmprestimo(id);
+        return ResponseEntity.ok(emprestimoAprovado);
     }
 
-    @GetMapping("/clientes/pendentes")
-    public ResponseEntity<List<Cliente>> getClientesPendentes() {
-        // Implementar busca por clientes com aprovado = false
-        // Por enquanto, retorna todos os clientes para simplificar
-        return ResponseEntity.ok(clienteService.buscarTodosClientes().stream()
-                .filter(cliente -> !cliente.isAprovado())
-                .toList());
-    }
-
-    @GetMapping("/emprestimos/pendentes")
-    public ResponseEntity<List<Emprestimo>> getEmprestimosPendentes() {
-        return ResponseEntity.ok(emprestimoService.buscarTodosEmprestimos().stream()
-                .filter(emprestimo -> !emprestimo.isAprovado())
-                .toList());
+    @PatchMapping("/emprestimos/{id}/reprovar")
+    @PreAuthorize("hasRole('ROLE_GERENTE')")
+    public ResponseEntity<Emprestimo> reprovarEmprestimo(@PathVariable Long id) {
+        Emprestimo emprestimoReprovado = emprestimoService.reproveEmprestimo(id);
+        return ResponseEntity.ok(emprestimoReprovado);
     }
 }

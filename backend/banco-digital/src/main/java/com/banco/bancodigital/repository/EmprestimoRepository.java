@@ -1,15 +1,16 @@
 package com.banco.bancodigital.repository;
 
 import com.banco.bancodigital.model.Emprestimo;
-import com.banco.bancodigital.model.Cliente;
+import com.banco.bancodigital.model.StatusEmprestimo;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
-import java.util.Optional;
 
 @Repository
 public interface EmprestimoRepository extends JpaRepository<Emprestimo, Long> {
-    List<Emprestimo> findByCliente(Cliente cliente);
-    Optional<Emprestimo> findByClienteAndAprovadoFalse(Cliente cliente);
+    List<Emprestimo> findByUsuarioId(Long usuarioId);
+    List<Emprestimo> findByStatus(StatusEmprestimo status);
+    long countByStatus(StatusEmprestimo status);
+    boolean existsByUsuarioIdAndStatusIn(Long usuarioId, List<StatusEmprestimo> statuses);
 }

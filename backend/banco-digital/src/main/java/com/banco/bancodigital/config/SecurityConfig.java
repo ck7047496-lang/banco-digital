@@ -1,11 +1,13 @@
 package com.banco.bancodigital.config;
 
+import com.banco.bancodigital.security.JwtAuthFilter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
@@ -15,24 +17,25 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration
 @EnableWebSecurity
+@EnableMethodSecurity
 public class SecurityConfig {
 
     @Autowired
-    private JwtRequestFilter jwtRequestFilter;
+    private JwtAuthFilter jwtAuthFilter;
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         http
-            .csrf(csrf -> csrf.disable()) // Desabilita CSRF para APIs REST
+            .csrf(csrf -> csrf.disable())
             .authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/api/auth/login", "/api/clientes/cadastro").permitAll() // Permite login e cadastro sem autenticação
-                .requestMatchers("/api/gerente/**").hasRole("GERENTE") // Apenas gerentes podem acessar
-                .requestMatchers("/api/cliente/**").hasRole("CLIENTE") // Apenas clientes podem acessar
-                .anyRequest().authenticated() // Todas as outras requisições exigem autenticação
+                .requestMatchers("/api/gerente/**", "/api/admin/**").hasRole("GERENTE")
+                .requestMatchers("/api/cliente/**").hasRole("CLIENTE")
+                .requestMatchers("/auth/**", "/api/clientes/cadastro", "/ws/**").permitAll() // Permitir acesso ao endpoint WebSocket
+                .anyRequest().authenticated()
             )
-            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)); // Não cria sessão
+            .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
 
-        http.addFilterBefore(jwtRequestFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

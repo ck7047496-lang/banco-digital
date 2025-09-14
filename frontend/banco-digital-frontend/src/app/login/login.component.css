@@ -1,0 +1,186 @@
+/* Estilo do container principal para centralizar o conteúdo */
+.login-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  background: linear-gradient(135deg, theme('colors.dark-background'), theme('colors.darker-background'));
+  color: theme('colors.text-light');
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+}
+
+.login-form {
+  background: var(--glass-bg);
+  backdrop-filter: blur(10px);
+  border-radius: 15px;
+  border: 1px solid var(--glass-border);
+  box-shadow: 0 8px 32px 0 var(--shadow-color);
+  padding: 3rem;
+  text-align: center;
+  width: 100%;
+  max-width: 400px;
+}
+
+.form-header h2 {
+  font-size: 2.5rem;
+  margin-bottom: 1.5rem;
+  color: theme('colors.primary-purple');
+  text-shadow: 0 0 10px rgba(theme('colors.primary-purple'), 0.5);
+}
+
+.form-header p {
+  font-size: 1.1rem;
+  color: theme('colors.text-dark');
+  margin-bottom: 2rem;
+}
+
+.login-type-toggle {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 2rem;
+  gap: 1rem;
+}
+
+.login-type-toggle button {
+  padding: 0.8rem 1.5rem;
+  border: none;
+  border-radius: 8px;
+  background-color: rgba(theme('colors.primary-purple'), 0.2);
+  color: theme('colors.primary-purple');
+  font-size: 1.1em;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  backdrop-filter: blur(5px);
+  border: 1px solid rgba(theme('colors.primary-purple'), 0.3);
+}
+
+.login-type-toggle button:hover {
+  background-color: rgba(theme('colors.primary-purple'), 0.4);
+  transform: translateY(-2px);
+}
+
+.login-type-toggle button.active {
+  background: linear-gradient(45deg, theme('colors.primary-purple'), theme('colors.secondary-blue'));
+  color: white;
+  box-shadow: 0 4px 15px rgba(theme('colors.secondary-blue'), 0.4);
+  border-color: transparent;
+}
+
+.input-group {
+  margin-bottom: 1.5rem;
+  position: relative;
+}
+
+.input-group label {
+  display: block;
+  text-align: left;
+  margin-bottom: 0.5rem;
+  font-weight: bold;
+  color: theme('colors.primary-purple');
+}
+
+.input-group input[type="text"],
+.input-group input[type="password"] {
+  width: calc(100% - 2rem);
+  padding: 1rem;
+  border: 1px solid theme('colors.primary-purple');
+  border-radius: 8px;
+  font-size: 1em;
+  background-color: rgba(255, 255, 255, 0.08);
+  color: theme('colors.text-light');
+  transition: all 0.3s ease;
+}
+
+.input-group input[type="text"]:focus,
+.input-group input[type="password"]:focus {
+  outline: none;
+  border-color: theme('colors.primary-purple');
+  box-shadow: 0 0 12px rgba(theme('colors.primary-purple'), 0.4);
+}
+
+.password-toggle {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: theme('colors.text-dark');
+}
+
+.password-toggle img {
+  width: 20px;
+  height: 20px;
+}
+
+.form-options {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 2rem;
+  font-size: 0.9em;
+}
+
+.form-options label {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}
+
+.form-options input[type="checkbox"] {
+  margin-right: 0.5rem;
+  accent-color: theme('colors.primary-purple');
+}
+
+.form-options a {
+  color: theme('colors.primary-purple');
+  text-decoration: none;
+  transition: color 0.3s ease;
+}
+
+.form-options a:hover {
+  color: theme('colors.secondary-blue');
+}
+
+.btn-submit {
+  width: 100%;
+  padding: 1rem;
+  border: none;
+  border-radius: 8px;
+  background: linear-gradient(45deg, theme('colors.primary-purple'), theme('colors.secondary-blue'));
+  color: white;
+  font-size: 1.2em;
+  font-weight: bold;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(theme('colors.secondary-blue'), 0.4);
+}
+
+.btn-submit:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(theme('colors.secondary-blue'), 0.6);
+}
+
+.signup-link {
+  margin-top: 1.5rem;
+  font-size: 1em;
+  color: theme('colors.text-dark');
+}
+
+.signup-link a {
+  color: theme('colors.primary-purple');
+  text-decoration: none;
+  font-weight: bold;
+  transition: color 0.3s ease;
+}
+
+.signup-link a:hover {
+  color: theme('colors.secondary-blue');
+}
+
+.error-message {
+  color: theme('colors.accent-red');
+  margin-top: 15px;
+  font-weight: 500;
+}
