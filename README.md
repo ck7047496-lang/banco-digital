@@ -83,7 +83,11 @@ spring.flyway.locations=classpath:db/migration
     ```
     A aplicação será aberta automaticamente no seu navegador em `http://localhost:4200`.
 
-## 4. Roteiro de Teste Detalhado
+## 4. Cadastro de Usuários
+
+Após o cadastro inicial de um novo usuário, é necessário que um gerente aprove o cadastro para que o usuário possa acessar todas as funcionalidades do sistema, como solicitar empréstimos. O status inicial de um usuário recém-cadastrado é "PENDENTE".
+
+## 5. Roteiro de Teste Detalhado
 
 Para validar o fluxo completo de empréstimo e as funcionalidades do sistema, siga os passos abaixo. É crucial observar o console do navegador (F12) e a aba "Network" (Rede) para verificar as requisições e a comunicação WebSocket.
 
@@ -95,28 +99,36 @@ Para validar o fluxo completo de empréstimo e as funcionalidades do sistema, si
 
 **Passos para Teste:**
 
-1.  **Login como Usuário:**
+1.  **Cadastro de Novo Usuário:**
     *   Acesse o frontend no seu navegador (geralmente `http://localhost:4200`).
-    *   Faça login com um usuário existente que tenha o status "ATIVO" e `situacaoCredito` como "APROVADO".
+    *   Clique em "Cadastrar" e preencha os dados para criar um novo usuário.
+    *   Após o cadastro, o usuário estará com o status "PENDENTE" e não poderá realizar operações financeiras.
+2.  **Login como Gerente e Aprovação de Usuário:**
+    *   Faça login com as credenciais de um gerente.
+    *   Acesse o painel de gerenciamento de usuários.
+    *   Localize o novo usuário com status "PENDENTE" e aprove o cadastro.
+3.  **Login como Usuário Aprovado:**
+    *   Faça logout do gerente.
+    *   Faça login com o usuário recém-aprovado.
     *   Verifique se o saldo é exibido corretamente no painel do usuário.
-2.  **Solicitar Empréstimo:**
+4.  **Solicitar Empréstimo:**
     *   No painel do usuário, clique em "Solicitar Empréstimo".
     *   Preencha o valor e o número de parcelas.
     *   Verifique se a simulação do empréstimo é exibida corretamente.
     *   Clique em "Solicitar Empréstimo" e confirme a solicitação no pop-up.
     *   Verifique se a mensagem de sucesso "Solicitação de empréstimo enviada com sucesso! Aguardando aprovação." é exibida.
     *   No histórico de empréstimos, o novo empréstimo deve aparecer com o status "PENDENTE".
-3.  **Login como Gerente:**
+5.  **Login como Gerente (para aprovar empréstimo):**
     *   Faça logout do usuário.
-    *   Faça login com as credenciais de um gerente.
+    *   Faça login novamente com as credenciais de um gerente.
     *   Acesse o painel de "Gerenciar Empréstimos".
     *   Verifique se o empréstimo solicitado pelo usuário aparece na lista com o status "PENDENTE".
     *   Verifique se os ícones `users.svg` e `logout.svg` estão sendo exibidos corretamente no painel do gerente.
-4.  **Aprovar Empréstimo (Gerente):**
+6.  **Aprovar Empréstimo (Gerente):**
     *   No painel do gerente, localize o empréstimo "PENDENTE" e clique na ação para aprová-lo.
     *   **Monitore o console do navegador (F12) e a aba "Network" (Rede)** para verificar se a requisição para `/api/admin/emprestimos/{id}/aprovar` retorna um status 200 OK e se não há erros no console.
     *   Após a aprovação, o status do empréstimo deve mudar para "APROVADO" no painel do gerente.
-5.  **Verificar Atualização do Saldo (Usuário):**
+7.  **Verificar Atualização do Saldo (Usuário):**
     *   Faça logout do gerente.
     *   Faça login novamente com o usuário que solicitou o empréstimo.
     *   Verifique se o saldo do usuário foi atualizado para incluir o valor do empréstimo aprovado.
