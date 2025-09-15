@@ -115,7 +115,7 @@ Para validar o fluxo completo de empréstimo e as funcionalidades do sistema, si
     *   Clique em "Cadastrar" e preencha os dados para criar um novo usuário.
     *   Após o cadastro, o usuário estará com o status "PENDENTE" e não poderá realizar operações financeiras.
 2.  **Login como Gerente e Aprovação de Usuário:**
-    *   Faça login com as credenciais de um gerente.
+    *   Faça login com as credenciais de um gerente (E-mail: `gerente@banco.com`, Senha: `senha123`).
     *   Acesse o painel de gerenciamento de usuários.
     *   Localize o novo usuário com status "PENDENTE" e aprove o cadastro.
 3.  **Login como Usuário Aprovado:**
@@ -147,3 +147,33 @@ Para validar o fluxo completo de empréstimo e as funcionalidades do sistema, si
     *   **Monitore o console do navegador (F12) e a aba "Network" (Rede)** para verificar a comunicação WebSocket e a atualização do saldo.
 
 Este roteiro cobre o fluxo completo de registro, aprovação de usuário, solicitação de empréstimo e aprovação de empréstimo, validando as funcionalidades implementadas com o backend Java e SQLite.
+
+## 6. Visualizando o Banco de Dados SQLite
+
+Para inspecionar os dados no banco de dados SQLite (`database.db`), você pode usar uma ferramenta gráfica como o **DB Browser for SQLite**.
+
+### Passos para Visualizar o Banco de Dados:
+
+1.  **Baixe e Instale o DB Browser for SQLite:**
+    *   Acesse o site oficial: [https://sqlitebrowser.org/](https://sqlitebrowser.org/)
+    *   Baixe e instale a versão compatível com o seu sistema operacional.
+2.  **Abra o Banco de Dados:**
+    *   Abra o DB Browser for SQLite.
+    *   Clique em "Open Database" (Abrir Banco de Dados).
+    *   Navegue até o diretório `c:/Users/Clayton/fullstech/backend/banco-digital` e selecione o arquivo `database.db`.
+3.  **Explore os Dados:**
+    *   Após abrir o arquivo, você poderá ver as tabelas existentes (por exemplo, `usuario`, `emprestimo`).
+    *   Selecione uma tabela na aba "Browse Data" (Navegar Dados) para visualizar o conteúdo. Você pode executar consultas SQL personalizadas na aba "Execute SQL" (Executar SQL).
+
+## 7. Compartilhamento do Projeto e Banco de Dados
+
+Ao compartilhar este projeto no GitHub, o arquivo `database.db` (que contém os dados cadastrados) **não é incluído por padrão** no repositório, pois ele está listado no `.gitignore`. Isso é uma prática recomendada para evitar o versionamento de dados sensíveis ou específicos do ambiente de desenvolvimento local.
+
+### Como funciona para outros usuários:
+
+*   Quando outra pessoa clonar o repositório e rodar o backend pela primeira vez, um novo arquivo `database.db` será criado automaticamente em `backend/banco-digital`.
+*   As migrações do Flyway (`V1__create_tables.sql`) serão aplicadas, criando a estrutura das tabelas.
+*   O `DataLoader.java` garantirá que o usuário gerente padrão seja criado com as credenciais `gerente@banco.com` e `senha123`.
+*   Os usuários precisarão se cadastrar e os gerentes aprovar os cadastros e empréstimos, seguindo o "Roteiro de Teste Detalhado" para popular o banco de dados com novos dados.
+
+Isso garante que o projeto seja facilmente configurável e testável por qualquer pessoa que o clone, sem depender de um banco de dados pré-existente com dados específicos.
