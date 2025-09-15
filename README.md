@@ -1,6 +1,14 @@
-# Banco Digital - Projeto de Migração para SQLite
+# Projeto FusTech
 
 Este projeto de banco digital foi desenvolvido por Clayton, com o objetivo de criar uma plataforma robusta e funcional para gerenciamento de contas e empréstimos. O sistema é composto por um frontend em Angular e um backend em Java (Spring Boot), utilizando SQLite como banco de dados local.
+
+## Resumo das Correções e Melhorias
+
+Esta atualização foca na correção e otimização da funcionalidade de "Solicitar Empréstimo", garantindo um fluxo mais estável e confiável. As principais melhorias incluem:
+
+*   **Fluxo de Cadastro de Usuário:** O processo de cadastro foi revisado para garantir que novos usuários sejam criados com o status "PENDENTE". Um gerente deve aprovar o cadastro para que o usuário possa acessar todas as funcionalidades do sistema.
+*   **Fluxo de Solicitação de Empréstimo:** A funcionalidade de solicitação de empréstimo foi corrigida e testada com sucesso. Agora, os usuários podem solicitar empréstimos de forma consistente, e o sistema garante que a aprovação ou rejeição por parte do gerente seja processada corretamente, com a atualização do saldo do usuário em tempo real via WebSockets.
+*   **Comunicação Assíncrona:** A integração com RabbitMQ foi aprimorada para lidar com a comunicação assíncrona de aprovação/rejeição de empréstimos e atualização de saldo, garantindo que as informações sejam propagadas de forma eficiente e confiável.
 
 ## Tecnologias Utilizadas
 
@@ -23,11 +31,13 @@ Este projeto de banco digital foi desenvolvido por Clayton, com o objetivo de cr
 *   **Jackson:** Biblioteca para serialização e desserialização de objetos Java para JSON, essencial para a comunicação com o RabbitMQ.
 *   **Lombok:** Biblioteca que reduz o código boilerplate em classes Java.
 
-## 1. Configuração do Banco de Dados (SQLite)
+## Instruções de Instalação e Configuração
+
+### 1. Configuração do Banco de Dados (SQLite)
 
 O banco de dados SQLite (`database.db`) será criado automaticamente na raiz do diretório `backend/banco-digital` quando a aplicação Spring Boot for iniciada pela primeira vez. Não é necessário configurar um servidor de banco de dados externo.
 
-### Variáveis de Ambiente do Banco de Dados:
+#### Variáveis de Ambiente do Banco de Dados:
 
 As configurações para a conexão com o SQLite estão definidas no arquivo `backend/banco-digital/src/main/resources/application.properties`:
 
@@ -40,33 +50,34 @@ spring.flyway.enabled=true
 spring.flyway.locations=classpath:db/migration
 ```
 
-## 2. Como Rodar o Backend (Spring Boot)
+### 2. Como Rodar o Backend (Spring Boot)
 
-### Pré-requisitos:
+#### Pré-requisitos:
 - Java 17 ou superior.
 - Maven.
 - RabbitMQ instalado e em execução localmente.
 
-### Comandos para rodar o Backend:
+#### Comandos para rodar o Backend:
 
 1.  **Navegue até o diretório do backend:**
     ```bash
     cd backend/banco-digital
-    ```2.  **Compile e execute a aplicação Spring Boot:**
+    ```
+2.  **Compile e execute a aplicação Spring Boot:**
     ```bash
     ./mvnw clean install
     ./mvnw spring-boot:run
     ```
     A aplicação estará disponível em `http://localhost:8080`. O arquivo `database.db` será criado e as migrações do Flyway serão aplicadas automaticamente.
 
-## 3. Como Rodar o Frontend (Angular)
+### 3. Como Rodar o Frontend (Angular)
 
-### Pré-requisitos:
+#### Pré-requisitos:
 - Node.js (versão LTS recomendada).
 - npm ou yarn.
 - Angular CLI (`npm install -g @angular/cli`).
 
-### Comandos para rodar o Frontend:
+#### Comandos para rodar o Frontend:
 
 1.  **Navegue até o diretório do frontend:**
     ```bash

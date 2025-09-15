@@ -74,15 +74,15 @@ export class UsuarioService {
   }
 
   getMeusEmprestimos(): Observable<any[]> {
-    return this.http.get<any[]>(`${this.baseUrl}/api/usuario/emprestimos`);
+    return this.http.get<any[]>(`${this.baseUrl}/api/cliente/emprestimos`);
   }
 
   getDadosUsuarioAutenticado(): Observable<Usuario> {
-    return this.http.get<Usuario>(`${this.baseUrl}/api/usuario/dados`);
+    return this.http.get<Usuario>(`${this.baseUrl}/api/cliente/dados`);
   }
 
   getSaldo(): Observable<number> {
-    return this.http.get<Usuario>(`${this.baseUrl}/api/usuario/dados`).pipe(
+    return this.http.get<Usuario>(`${this.baseUrl}/api/cliente/dados`).pipe(
       tap(response => {
         sessionStorage.setItem('saldo', response.saldo.toString());
       }),

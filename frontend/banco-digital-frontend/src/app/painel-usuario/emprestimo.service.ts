@@ -55,7 +55,7 @@ export class EmprestimoService {
   }
 
   getMeusEmprestimos(): Observable<Emprestimo[]> {
-    return this.http.get<Emprestimo[]>(`${this.baseUrl}/api/usuario/emprestimos`);
+    return this.http.get<Emprestimo[]>(`${this.baseUrl}/api/cliente/emprestimos`);
   }
 
   solicitarEmprestimo(emprestimo: EmprestimoRequest): Observable<Emprestimo> {

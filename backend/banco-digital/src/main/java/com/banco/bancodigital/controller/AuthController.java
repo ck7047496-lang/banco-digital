@@ -55,23 +55,13 @@ public class AuthController {
 
     @PostMapping("/login")
     public ResponseEntity<AuthResponse> authenticateAndGetToken(@RequestBody AuthRequest authRequest) {
-        // Primeiro, tente encontrar o usuário pelo identificador (email ou CPF)
-        Usuario usuario = usuarioRepository.findByEmail(authRequest.getIdentifier())
-                .orElseGet(() -> usuarioRepository.findByCpf(authRequest.getIdentifier())
-                        .orElseThrow(() -> new UsernameNotFoundException("Usuário inexistente ou senha inválida")));
-        
-                System.out.println("Status do usuário encontrado para login: " + usuario.getStatus());
-
-        // Use o email do usuário encontrado para a autenticação
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(usuario.getEmail(), authRequest.getSenha()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(authRequest.getIdentifier().trim(), authRequest.getSenha().trim()));
 
         if (authentication.isAuthenticated()) {
-            // Após a autenticação, o principal é o UserDetails retornado por CustomUserDetailsService
             UserDetails userDetails = (UserDetails) authentication.getPrincipal();
-            String email = userDetails.getUsername(); // O email é o username no UserDetails
+            String email = userDetails.getUsername();
 
-            // Buscar o usuário completo para obter todos os dados (já temos o usuário, mas para garantir)
-            Usuario authenticatedUser = usuarioService.findByEmail(email)
+            Usuario authenticatedUser = usuarioRepository.findByEmail(email)
                     .orElseThrow(() -> new UsernameNotFoundException("Usuário não encontrado após autenticação."));
 
             if (authenticatedUser.getStatus() != com.banco.bancodigital.model.StatusUsuario.ATIVO) {

@@ -29,7 +29,10 @@ public class UsuarioService {
         usuario.setCpf(request.getCpf());
         usuario.setEmail(request.getEmail());
         usuario.setEndereco(request.getEndereco());
-        usuario.setSenha(passwordEncoder.encode(request.getSenha()));
+        System.out.println("Senha original antes da criptografia: " + request.getSenha());
+        String encodedPassword = passwordEncoder.encode(request.getSenha());
+        System.out.println("Senha criptografada: " + encodedPassword);
+        usuario.setSenha(encodedPassword);
         usuario.setPapel(request.getPapel() != null ? request.getPapel() : PapelUsuario.ROLE_CLIENTE);
         usuario.setStatus(StatusUsuario.PENDENTE);
         return usuarioRepository.save(usuario);
