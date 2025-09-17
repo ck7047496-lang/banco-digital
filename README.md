@@ -37,6 +37,9 @@ https://github.com/user-attachments/assets/304b14ea-3ec3-448c-9401-5fb842d42931
 
 ## Arquitetura
 
+![WhatsApp Image 2025-09-17 at 12 26 00](https://github.com/user-attachments/assets/fde18336-1e39-445d-8661-4f540e57d1bc)
+
+
 O projeto segue uma arquitetura de microsserviços (ou uma aplicação monolítica bem modularizada) com uma clara separação entre o backend e o frontend.
 
 *   **Backend:** Uma API RESTful desenvolvida com Spring Boot que lida com a lógica de negócios, persistência de dados (SQLite), segurança (JWT) e comunicação assíncrona (RabbitMQ) e em tempo real (WebSockets).
