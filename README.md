@@ -1,4 +1,5 @@
 # Banco Digital
+![Image](https://github.com/user-attachments/assets/e696d76a-d32b-416f-8884-f142c3523fe2)
 
 Este projeto é uma aplicação de banco digital completa, dividida em um backend construído com Spring Boot e um frontend desenvolvido com Angular. Ele oferece funcionalidades para usuários (clientes) e gerentes, incluindo autenticação, gerenciamento de empréstimos, e comunicação em tempo real.
 
