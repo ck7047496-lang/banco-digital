@@ -4,7 +4,7 @@
 Este projeto é uma aplicação de banco digital completa, dividida em um backend construído com Spring Boot e um frontend desenvolvido com Angular. Ele oferece funcionalidades para usuários (clientes) e gerentes, incluindo autenticação, gerenciamento de empréstimos, e comunicação em tempo real.
 
 
-https://github.com/user-attachments/assets/242d97cb-bd31-4baa-ae8b-bb703d9d2ef4
+
 
 ## Tecnologias Utilizadas
 
