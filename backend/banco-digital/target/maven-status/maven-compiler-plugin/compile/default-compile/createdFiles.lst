@@ -15,6 +15,7 @@ com\banco\bancodigital\model\SituacaoCredito.class
 com\banco\bancodigital\config\WebSocketConfig.class
 com\banco\bancodigital\repository\EmprestimoRepository.class
 com\banco\bancodigital\config\SecurityConfig.class
+com\banco\bancodigital\service\WebhookService.class
 com\banco\bancodigital\dtos\AuthRequest.class
 com\banco\bancodigital\dtos\RegisterGerenteRequest.class
 com\banco\bancodigital\model\StatusUsuario.class
@@ -25,6 +26,7 @@ com\banco\bancodigital\model\StatusEmprestimo.class
 com\banco\bancodigital\service\UsuarioService.class
 com\banco\bancodigital\config\RabbitMQConfig.class
 com\banco\bancodigital\model\Usuario.class
+com\banco\bancodigital\controller\WebhookController.class
 com\banco\bancodigital\dtos\EmprestimoRequest.class
 com\banco\bancodigital\model\PapelUsuario.class
 com\banco\bancodigital\rabbitmq\RabbitMQListener.class

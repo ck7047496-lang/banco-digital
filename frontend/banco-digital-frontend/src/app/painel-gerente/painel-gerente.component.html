@@ -7,34 +7,30 @@
       <ul>
         <li>
           <button [class.active]="viewMode === 'usuarios'" (click)="viewMode = 'usuarios'">
-            <img src="assets/icons/users.svg" alt="Ícone Usuários" class="menu-icon">
+            <img src="assets/icons/users.svg" alt="Usuários" class="menu-icon">
             Gerenciar Usuários
           </button>
         </li>
         <li>
           <button [class.active]="viewMode === 'emprestimos'" (click)="viewMode = 'emprestimos'">
-            <img src="assets/icons/money-bag.svg" alt="Ícone Empréstimos" class="menu-icon">
+            <img src="assets/icons/money-bag.svg" alt="Empréstimos" class="menu-icon">
             Gerenciar Empréstimos
           </button>
         </li>
         <li>
           <button [class.active]="viewMode === 'dashboard'" (click)="viewMode = 'dashboard'">
-            <img src="assets/icons/chart-up.svg" alt="Ícone Dashboard" class="menu-icon">
-            Dashboard ({{ totalUsuarios }} usuários)
+            <img src="assets/icons/chart-up.svg" alt="Dashboard" class="menu-icon">
+            Dashboard
           </button>
         </li>
         <li>
           <button [class.active]="viewMode === 'configuracoes'" (click)="viewMode = 'configuracoes'">
-            <img src="assets/icons/gear.svg" alt="Ícone Configurações" class="menu-icon">
+            <img src="assets/icons/gear.svg" alt="Configurações" class="menu-icon">
             Configurações
           </button>
         </li>
       </ul>
     </nav>
-    <button (click)="logout()" class="btn-logout">
-      <img src="assets/icons/logout.svg" alt="Ícone Sair" class="menu-icon">
-      Sair
-    </button>
   </aside>
 
   <div class="content-area">
@@ -58,8 +54,9 @@
     <div *ngIf="viewMode === 'usuarios'" class="card">
       <div class="flex justify-between items-center mb-4">
         <h3 class="text-2xl font-bold text-white">Gerenciar Usuários</h3>
-        <button (click)="carregarTodosUsuarios()" class="bg-purple-600 hover:bg-purple-700 text-white font-bold py-2 px-4 rounded-lg transition duration-300">
-          <i class="fas fa-sync-alt mr-2"></i>Atualizar
+        <button (click)="logout()" class="btn-logout-header">
+          <img src="assets/icons/logout.svg" alt="Sair" class="menu-icon">
+          Sair
         </button>
       </div>
       <div class="filtros">

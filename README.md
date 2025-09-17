@@ -1,179 +1,109 @@
-# Projeto FusTech
+# Banco Digital
 
-Este projeto de banco digital foi desenvolvido por Clayton, com o objetivo de criar uma plataforma robusta e funcional para gerenciamento de contas e empréstimos. O sistema é composto por um frontend em Angular e um backend em Java (Spring Boot), utilizando SQLite como banco de dados local.
-
-## Resumo das Correções e Melhorias
-
-Esta atualização foca na correção e otimização da funcionalidade de "Solicitar Empréstimo", garantindo um fluxo mais estável e confiável. As principais melhorias incluem:
-
-*   **Fluxo de Cadastro de Usuário:** O processo de cadastro foi revisado para garantir que novos usuários sejam criados com o status "PENDENTE". Um gerente deve aprovar o cadastro para que o usuário possa acessar todas as funcionalidades do sistema.
-*   **Fluxo de Solicitação de Empréstimo:** A funcionalidade de solicitação de empréstimo foi corrigida e testada com sucesso. Agora, os usuários podem solicitar empréstimos de forma consistente, e o sistema garante que a aprovação ou rejeição por parte do gerente seja processada corretamente, com a atualização do saldo do usuário em tempo real via WebSockets.
-*   **Comunicação Assíncrona:** A integração com RabbitMQ foi aprimorada para lidar com a comunicação assíncrona de aprovação/rejeição de empréstimos e atualização de saldo, garantindo que as informações sejam propagadas de forma eficiente e confiável.
+Este projeto é uma aplicação de banco digital completa, dividida em um backend construído com Spring Boot e um frontend desenvolvido com Angular. Ele oferece funcionalidades para usuários (clientes) e gerentes, incluindo autenticação, gerenciamento de empréstimos, e comunicação em tempo real.
 
 ## Tecnologias Utilizadas
 
+### Backend (Spring Boot)
+
+*   **Linguagem:** Java 17
+*   **Framework:** Spring Boot 3.2.5
+*   **Gerenciador de Dependências:** Maven
+*   **Banco de Dados:** SQLite (configurado para `database.db`)
+*   **ORM:** Spring Data JPA com Hibernate
+*   **Segurança:** Spring Security e JWT (JSON Web Tokens) para autenticação e autorização
+*   **Mensageria:** RabbitMQ para comunicação assíncrona
+*   **Comunicação em Tempo Real:** Spring WebSocket
+*   **Testes:** Spring Boot Starter Test, JUnit
+
 ### Frontend (Angular)
-*   **Angular:** Framework para construção de interfaces de usuário dinâmicas e reativas.
-*   **TypeScript:** Superset do JavaScript que adiciona tipagem estática, melhorando a manutenibilidade e escalabilidade do código.
-*   **HTML5/CSS3:** Estruturação e estilização das páginas web.
-*   **RxJS:** Biblioteca para programação reativa, utilizada para lidar com eventos assíncronos e fluxos de dados.
-*   **JWT (JSON Web Tokens):** Utilizado para autenticação e autorização de usuários.
-*   **WebSockets:** Para comunicação em tempo real, garantindo a atualização instantânea do saldo do usuário após a aprovação de empréstimos.
 
-### Backend (Java - Spring Boot)
-*   **Java 17:** Linguagem de programação principal.
-*   **Spring Boot:** Framework para desenvolvimento rápido de aplicações Java, com foco em microserviços.
-*   **Spring Security:** Para segurança da aplicação, incluindo autenticação baseada em JWT e controle de acesso baseado em roles (usuário e gerente).
-*   **Spring Data JPA:** Para persistência de dados, facilitando a interação com o banco de dados.
-*   **SQLite:** Banco de dados relacional leve e embarcado, ideal para desenvolvimento e testes locais.
-*   **Flyway:** Ferramenta de migração de banco de dados, garantindo que o esquema do banco esteja sempre atualizado.
-*   **RabbitMQ:** Message broker utilizado para comunicação assíncrona entre os serviços, especialmente para o processamento de aprovação/rejeição de empréstimos e atualização de saldo via WebSockets.
-*   **Jackson:** Biblioteca para serialização e desserialização de objetos Java para JSON, essencial para a comunicação com o RabbitMQ.
-*   **Lombok:** Biblioteca que reduz o código boilerplate em classes Java.
+*   **Framework:** Angular 17
+*   **Linguagem:** TypeScript
+*   **Estilização:** Tailwind CSS
+*   **Testes E2E:** Cypress
+*   **Gráficos:** Chart.js, ng2-charts
+*   **Geração de PDF:** jspdf, jspdf-autotable
+*   **Decodificação JWT:** jwt-decode
+*   **Reatividade:** RxJS
+*   **WebSockets:** sockjs-client
+*   **3D (potencial):** Three.js (presente nas dependências, mas o uso específico não foi detalhado nos arquivos analisados)
+*   **Planilhas:** xlsx
+*   **Autenticação/Backend as a Service:** Supabase (presente nas dependências, mas o uso específico não foi detalhado nos arquivos analisados)
 
-## Instruções de Instalação e Configuração
+## Arquitetura
 
-### 1. Configuração do Banco de Dados (SQLite)
+O projeto segue uma arquitetura de microsserviços (ou uma aplicação monolítica bem modularizada) com uma clara separação entre o backend e o frontend.
 
-O banco de dados SQLite (`database.db`) será criado automaticamente na raiz do diretório `backend/banco-digital` quando a aplicação Spring Boot for iniciada pela primeira vez. Não é necessário configurar um servidor de banco de dados externo.
+*   **Backend:** Uma API RESTful desenvolvida com Spring Boot que lida com a lógica de negócios, persistência de dados (SQLite), segurança (JWT) e comunicação assíncrona (RabbitMQ) e em tempo real (WebSockets).
+*   **Frontend:** Uma Single Page Application (SPA) construída com Angular que consome a API do backend. Ele oferece interfaces de usuário distintas para clientes e gerentes, com rotas protegidas por `AuthGuard`.
+*   **Comunicação Assíncrona:** Utiliza RabbitMQ para processamento de tarefas em segundo plano ou comunicação entre serviços.
+*   **Comunicação em Tempo Real:** WebSockets são empregados para funcionalidades que exigem atualizações instantâneas, como notificações ou atualizações de status.
+*   **Autenticação:** Baseada em JWT, garantindo que apenas usuários autorizados acessem recursos específicos.
 
-#### Variáveis de Ambiente do Banco de Dados:
+## Como Rodar o Projeto
 
-As configurações para a conexão com o SQLite estão definidas no arquivo `backend/banco-digital/src/main/resources/application.properties`:
+### Pré-requisitos
 
-```properties
-spring.datasource.url=jdbc:sqlite:database.db
-spring.datasource.driver-class-name=org.sqlite.JDBC
-spring.jpa.database-platform=org.hibernate.dialect.SQLiteDialect
-spring.jpa.hibernate.ddl-auto=update
-spring.flyway.enabled=true
-spring.flyway.locations=classpath:db/migration
-```
+*   Java Development Kit (JDK) 17 ou superior
+*   Maven
+*   Node.js e npm (ou yarn)
+*   Git
+*   Docker e Docker Compose (para o RabbitMQ, se usado via Docker)
 
-### 2. Como Rodar o Backend (Spring Boot)
-
-#### Pré-requisitos:
-- Java 17 ou superior.
-- Maven.
-- RabbitMQ instalado e em execução localmente.
-
-#### Comandos para rodar o Backend:
+### Configuração do Backend
 
 1.  **Navegue até o diretório do backend:**
     ```bash
     cd backend/banco-digital
     ```
-2.  **Compile e execute a aplicação Spring Boot:**
+2.  **Compile o projeto Maven:**
     ```bash
-    ./mvnw clean install
-    ./mvnw spring-boot:run
+    mvn clean install
     ```
-    A aplicação estará disponível em `http://localhost:8080`. O arquivo `database.db` será criado e as migrações do Flyway serão aplicadas automaticamente.
+3.  **Execute a aplicação Spring Boot:**
+    ```bash
+    mvn spring-boot:run
+    ```
+    O backend estará disponível em `http://localhost:8080`.
 
-### 3. Como Rodar o Frontend (Angular)
-
-#### Pré-requisitos:
-- Node.js (versão LTS recomendada).
-- npm ou yarn.
-- Angular CLI (`npm install -g @angular/cli`).
-
-#### Comandos para rodar o Frontend:
+### Configuração do Frontend
 
 1.  **Navegue até o diretório do frontend:**
     ```bash
     cd frontend/banco-digital-frontend
     ```
-2.  **Instale as dependências:**
+2.  **Instale as dependências do Node.js:**
     ```bash
     npm install
-    # ou yarn install
     ```
 3.  **Inicie a aplicação Angular:**
     ```bash
-    ng serve --open
+    npm start
     ```
-    A aplicação será aberta automaticamente no seu navegador em `http://localhost:4200`.
+    O frontend estará disponível em `http://localhost:4200` (ou outra porta, dependendo da configuração do Angular CLI).
 
-## 4. Cadastro de Usuários
+### Executando Testes E2E (Cypress)
 
-Após o cadastro inicial de um novo usuário, é necessário que um gerente aprove o cadastro para que o usuário possa acessar todas as funcionalidades do sistema, como solicitar empréstimos. O status inicial de um usuário recém-cadastrado é "PENDENTE".
+1.  Certifique-se de que o frontend esteja rodando (`npm start`).
+2.  **Navegue até o diretório do frontend:**
+    ```bash
+    cd frontend/banco-digital-frontend
+    ```
+3.  **Abra o Cypress Test Runner:**
+    ```bash
+    npm run e2e
+    ```
+    Isso abrirá a interface do Cypress, onde você pode selecionar e executar os testes end-to-end.
 
-## 5. Roteiro de Teste Detalhado
+## Estrutura de Pastas
 
-Para validar o fluxo completo de empréstimo e as funcionalidades do sistema, siga os passos abaixo. É crucial observar o console do navegador (F12) e a aba "Network" (Rede) para verificar as requisições e a comunicação WebSocket.
-
-**Pré-requisitos:**
-
-*   Certifique-se de que o backend (Spring Boot) esteja em execução.
-*   Certifique-se de que o frontend (Angular) esteja em execução.
-*   Certifique-se de que o RabbitMQ esteja em execução.
-
-**Passos para Teste:**
-
-1.  **Cadastro de Novo Usuário:**
-    *   Acesse o frontend no seu navegador (geralmente `http://localhost:4200`).
-    *   Clique em "Cadastrar" e preencha os dados para criar um novo usuário.
-    *   Após o cadastro, o usuário estará com o status "PENDENTE" e não poderá realizar operações financeiras.
-2.  **Login como Gerente e Aprovação de Usuário:**
-    *   Faça login com as credenciais de um gerente (E-mail: `gerente@banco.com`, Senha: `senha123`).
-    *   Acesse o painel de gerenciamento de usuários.
-    *   Localize o novo usuário com status "PENDENTE" e aprove o cadastro.
-3.  **Login como Usuário Aprovado:**
-    *   Faça logout do gerente.
-    *   Faça login com o usuário recém-aprovado.
-    *   Verifique se o saldo é exibido corretamente no painel do usuário.
-4.  **Solicitar Empréstimo:**
-    *   No painel do usuário, clique em "Solicitar Empréstimo".
-    *   Preencha o valor e o número de parcelas.
-    *   Verifique se a simulação do empréstimo é exibida corretamente.
-    *   Clique em "Solicitar Empréstimo" e confirme a solicitação no pop-up.
-    *   Verifique se a mensagem de sucesso "Solicitação de empréstimo enviada com sucesso! Aguardando aprovação." é exibida.
-    *   No histórico de empréstimos, o novo empréstimo deve aparecer com o status "PENDENTE".
-5.  **Login como Gerente (para aprovar empréstimo):**
-    *   Faça logout do usuário.
-    *   Faça login novamente com as credenciais de um gerente.
-    *   Acesse o painel de "Gerenciar Empréstimos".
-    *   Verifique se o empréstimo solicitado pelo usuário aparece na lista com o status "PENDENTE".
-    *   Verifique se os ícones `users.svg` e `logout.svg` estão sendo exibidos corretamente no painel do gerente.
-6.  **Aprovar Empréstimo (Gerente):**
-    *   No painel do gerente, localize o empréstimo "PENDENTE" e clique na ação para aprová-lo.
-    *   **Monitore o console do navegador (F12) e a aba "Network" (Rede)** para verificar se a requisição para `/api/admin/emprestimos/{id}/aprovar` retorna um status 200 OK e se não há erros no console.
-    *   Após a aprovação, o status do empréstimo deve mudar para "APROVADO" no painel do gerente.
-7.  **Verificar Atualização do Saldo (Usuário):**
-    *   Faça logout do gerente.
-    *   Faça login novamente com o usuário que solicitou o empréstimo.
-    *   Verifique se o saldo do usuário foi atualizado para incluir o valor do empréstimo aprovado.
-    *   Verifique se o status do empréstimo no histórico do usuário mudou para "APROVADO".
-    *   **Monitore o console do navegador (F12) e a aba "Network" (Rede)** para verificar a comunicação WebSocket e a atualização do saldo.
-
-Este roteiro cobre o fluxo completo de registro, aprovação de usuário, solicitação de empréstimo e aprovação de empréstimo, validando as funcionalidades implementadas com o backend Java e SQLite.
-
-## 6. Visualizando o Banco de Dados SQLite
-
-Para inspecionar os dados no banco de dados SQLite (`database.db`), você pode usar uma ferramenta gráfica como o **DB Browser for SQLite**.
-
-### Passos para Visualizar o Banco de Dados:
-
-1.  **Baixe e Instale o DB Browser for SQLite:**
-    *   Acesse o site oficial: [https://sqlitebrowser.org/](https://sqlitebrowser.org/)
-    *   Baixe e instale a versão compatível com o seu sistema operacional.
-2.  **Abra o Banco de Dados:**
-    *   Abra o DB Browser for SQLite.
-    *   Clique em "Open Database" (Abrir Banco de Dados).
-    *   Navegue até o diretório `c:/Users/Clayton/fullstech/backend/banco-digital` e selecione o arquivo `database.db`.
-3.  **Explore os Dados:**
-    *   Após abrir o arquivo, você poderá ver as tabelas existentes (por exemplo, `usuario`, `emprestimo`).
-    *   Selecione uma tabela na aba "Browse Data" (Navegar Dados) para visualizar o conteúdo. Você pode executar consultas SQL personalizadas na aba "Execute SQL" (Executar SQL).
-
-## 7. Compartilhamento do Projeto e Banco de Dados
-
-Ao compartilhar este projeto no GitHub, o arquivo `database.db` (que contém os dados cadastrados) **não é incluído por padrão** no repositório, pois ele está listado no `.gitignore`. Isso é uma prática recomendada para evitar o versionamento de dados sensíveis ou específicos do ambiente de desenvolvimento local.
-
-### Como funciona para outros usuários:
-
-*   Quando outra pessoa clonar o repositório e rodar o backend pela primeira vez, um novo arquivo `database.db` será criado automaticamente em `backend/banco-digital`.
-*   As migrações do Flyway (`V1__create_tables.sql`) serão aplicadas, criando a estrutura das tabelas.
-*   O `DataLoader.java` garantirá que o usuário gerente padrão seja criado com as credenciais `gerente@banco.com` e `senha123`.
-*   Os usuários precisarão se cadastrar e os gerentes aprovar os cadastros e empréstimos, seguindo o "Roteiro de Teste Detalhado" para popular o banco de dados com novos dados.
-
-Isso garante que o projeto seja facilmente configurável e testável por qualquer pessoa que o clone, sem depender de um banco de dados pré-existente com dados específicos.
+*   `backend/banco-digital`: Contém o código-fonte do backend Spring Boot.
+    *   `src/main/java/com/banco/bancodigital`: Classes Java da aplicação.
+    *   `src/main/resources`: Arquivos de configuração (ex: `application.properties`) e scripts de migração de banco de dados.
+    *   `src/test/java/com/banco/bancodigital`: Testes de integração e unitários do backend.
+*   `frontend/banco-digital-frontend`: Contém o código-fonte da aplicação Angular.
+    *   `src/app`: Componentes, serviços, módulos e rotas do Angular.
+    *   `src/assets`: Imagens, ícones e outros recursos estáticos.
+    *   `cypress`: Testes end-to-end com Cypress.
+*   `docker-compose.yml`: Arquivo para orquestração de contêineres Docker (ex: RabbitMQ).

@@ -42,6 +42,10 @@ public class UsuarioService {
         return usuarioRepository.findByEmail(email);
     }
 
+    public Optional<Usuario> findByCpf(String cpf) {
+        return usuarioRepository.findByCpf(cpf);
+    }
+
     public Optional<Usuario> findById(Long id) {
         return usuarioRepository.findById(id);
     }
@@ -74,5 +78,10 @@ public class UsuarioService {
                 .orElseThrow(() -> new RuntimeException("Cliente não encontrado com o ID: " + id));
         usuario.setStatus(StatusUsuario.RECUSADO);
         return usuarioRepository.save(usuario);
+    }
+
+    public List<Usuario> findAll() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'findAll'");
     }
 }

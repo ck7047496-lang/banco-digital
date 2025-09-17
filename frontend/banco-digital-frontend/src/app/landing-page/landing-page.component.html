@@ -1,46 +1,116 @@
-<div class="landing-page-container">
-  <header class="header">
-    <div class="logo">FUSTECH</div>
-    <nav class="nav-links">
-      <a class="nav-item" href="#">Home</a>
-      <a class="nav-item" href="#">Serviços</a>
-      <a class="nav-item" href="#">Contato</a>
-    </nav>
-  </header>
+    <div class="landing-page-container rounded-3xl overflow-hidden">
+        <header class="header rounded-t-3xl">
+            <div class="logo">EmpréstimosFácil</div>
+            <nav class="nav-links">
+                <a href="#home" class="nav-item">Início</a>
+                <a href="#about" class="nav-item">Sobre</a>
+                <a href="#features" class="nav-item">Recursos</a>
+                <a href="#services" class="nav-item">Serviços</a>
+                <a href="#contact" class="nav-item">Contato</a>
+            </nav>
+        </header>
 
-  <main class="main-content">
-    <section class="hero-section">
-      <div class="hero-content">
-        <h1 class="hero-title">Bem-vindo ao FUSTECH</h1>
-        <p class="hero-subtitle">Seu banco digital para empréstimos rápidos e seguros.</p>
-        <ul class="bullets" aria-label="Diferenciais">
-          <li>Inicie de até R$10.000</li>
-          <li>Aprovação pelo gerente em tempo real</li>
-        </ul>
-        <div class="action-buttons">
-          <button class="btn-main btn-access" (click)="accessAccount()">Acessar Conta</button>
-          <button class="btn-main btn-create" (click)="createAccount()">Criar Conta</button>
-        </div>
-      </div>
-      <!-- Adicione uma imagem hero se desejar -->
-      <picture>
-        <img class="hero-image" src="assets/ilustri_landpage.png" alt="Ilustração de empréstimo" loading="lazy" width="600" height="400">
-      </picture>
-    </section>
+        <main class="main-content">
+            <section id="home" class="hero-section">
+                <div class="hero-content">
+                    <h1 class="hero-title">Simule Seu Empréstimo Agora</h1>
+                    <p class="hero-subtitle">Obtenha as melhores condições para o seu empréstimo de forma rápida e segura.</p>
+                    <div class="action-buttons">
+                        <a (click)="accessAccount()" class="btn-main btn-primary rounded-3xl">Acessar Conta</a>
+                        <a (click)="createAccount()" class="btn-main btn-secondary rounded-3xl">Criar Conta</a>
+                    </div>
+                </div>
+            </section>
 
-    <!-- Seções adicionais como info ou features podem ser adicionadas aqui -->
-  </main>
+            <section id="about" class="about-section rounded-3xl overflow-hidden">
+                <div class="about-content">
+                    <h2 class="section-title">Sobre o FUSTECH</h2>
+                    <p class="section-subtitle">Sua plataforma de empréstimos digitais, rápida e segura.</p>
+                    <p>O FUSTECH é um sistema inovador projetado para simplificar o processo de solicitação e gerenciamento de empréstimos. Nossa missão é oferecer uma experiência financeira transparente e eficiente para todos os nossos usuários.</p>
+                    <p>Com tecnologia de ponta e uma equipe dedicada, garantimos segurança, agilidade e as melhores condições para você realizar seus projetos.</p>
+                </div>
+                <div class="about-image-placeholder rounded-3xl overflow-hidden"></div>
+            </section>
 
-  <footer class="footer">
-    <div class="footer-content">
-      <div class="footer-section">
-        <h3>Sobre Nós</h3>
-        <p>FUSTECH - Inovando o setor financeiro.</p>
-      </div>
-      <!-- Mais seções no footer se necessário -->
+            <section id="features" class="features-section rounded-3xl overflow-hidden">
+                <h2 class="section-title">Recursos do Sistema FUSTECH</h2>
+                <p class="section-subtitle">Descubra as funcionalidades que tornam nosso sistema a melhor escolha para seus empréstimos.</p>
+                <div class="features-grid">
+                    <div class="feature-item rounded-3xl overflow-hidden">
+                        <div class="feature-icon-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2L2 7v10l10 5 10-5V7L12 2z"></path><polyline points="2 7 12 12 22 7"></polyline><polyline points="12 22 12 12"></polyline></svg>
+                        </div>
+                        <h3>Processo Simplificado</h3>
+                        <p>Solicite seu empréstimo em poucos passos, sem burocracia e com total transparência.</p>
+                    </div>
+                    <div class="feature-item rounded-3xl overflow-hidden">
+                        <div class="feature-icon-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><polyline points="12 6 12 12 16 14"></polyline></svg>
+                        </div>
+                        <h3>Aprovação Rápida</h3>
+                        <p>Análise e aprovação de crédito em tempo real, para você não perder tempo.</p>
+                    </div>
+                    <div class="feature-item rounded-3xl overflow-hidden">
+                        <div class="feature-icon-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path><circle cx="9" cy="7" r="4"></circle><path d="M23 21v-2a4 4 0 0 0-3-3.87"></path><path d="M16 3.13a4 4 0 0 1 0 7.75"></path></svg>
+                        </div>
+                        <h3>Condições Flexíveis</h3>
+                        <p>Opções de empréstimo personalizadas para atender às suas necessidades.</p>
+                    </div>
+                </div>
+            </section>
+
+            <section id="services" class="services-section rounded-3xl overflow-hidden">
+                <h2 class="section-title">Nossos Serviços</h2>
+                <p class="section-subtitle">Soluções personalizadas para o seu sucesso financeiro.</p>
+                <div class="services-grid">
+                    <div class="service-item rounded-3xl overflow-hidden">
+                        <div class="service-icon-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.2 15.8v-1.4c0-1.2-.6-2.3-1.6-3l-7.2-4.2c-.8-.5-1.8-.5-2.6 0L4.4 11.4c-1 .7-1.6 1.8-1.6 3v1.4"></path><path d="M12 22L2 17l10-5 10 5-10 5z"></path><path d="M2 17l10-5 10 5"></path></svg>
+                        </div>
+                        <h3>Simulação de Empréstimos</h3>
+                        <p>Ferramenta intuitiva para simular valores e parcelas antes de solicitar.</p>
+                    </div>
+                    <div class="service-item rounded-3xl overflow-hidden">
+                        <div class="service-icon-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"></path><path d="M16.5 3.5a2.121 2.121 0 0 1 3 3L7 19l-4 1 1-4L16.5 3.5z"></path></svg>
+                        </div>
+                        <h3>Acompanhamento em Tempo Real</h3>
+                        <p>Monitore o status da sua solicitação e pagamentos a qualquer momento.</p>
+                    </div>
+                    <div class="service-item rounded-3xl overflow-hidden">
+                        <div class="service-icon-placeholder">
+                            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path></svg>
+                        </div>
+                        <h3>Suporte Dedicado</h3>
+                        <p>Equipe de especialistas pronta para ajudar em todas as etapas.</p>
+                    </div>
+                </div>
+            </section>
+        </main>
+
+        <footer class="footer rounded-b-3xl">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>FUSTECH</h3>
+                    <p>Sobre Nós</p>
+                    <p>Carreiras</p>
+                    <p>Contato</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Recursos</h3>
+                    <p>Simulação</p>
+                    <p>Acompanhamento</p>
+                    <p>Suporte</p>
+                </div>
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <p>Política de Privacidade</p>
+                    <p>Termos de Uso</p>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; {{ currentYear }} FUSTECH. Todos os direitos reservados.</p>
+            </div>
+        </footer>
     </div>
-    <div class="footer-bottom">
-      <p>© {{ currentYear }} FUSTECH. Todos os direitos reservados.</p>
-    </div>
-  </footer>
-</div>

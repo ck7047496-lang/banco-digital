@@ -16,6 +16,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.math.BigDecimal;
 import java.util.List;
 import java.util.Optional;
+import java.util.UUID;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -40,13 +41,15 @@ public class UsuarioServiceIntegrationTest {
 
     @Test
     void testRegisterNewUser() {
-        RegisterRequest request = new RegisterRequest("João Silva", "12345678900", "joao@example.com", "Rua A, 123", "senha123", null);
+        String uniqueCpf = UUID.randomUUID().toString().substring(0, 11).replaceAll("-", "");
+        String uniqueEmail = "joao_" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
+        RegisterRequest request = new RegisterRequest("João Silva", uniqueCpf, uniqueEmail, "Rua A, 123", "senha123", null);
         Usuario usuario = usuarioService.registerNewUser(request);
 
         assertNotNull(usuario.getId());
         assertEquals("João Silva", usuario.getNome());
-        assertEquals("12345678900", usuario.getCpf());
-        assertEquals("joao@example.com", usuario.getEmail());
+        assertEquals(uniqueCpf, usuario.getCpf());
+        assertEquals(uniqueEmail, usuario.getEmail());
         assertTrue(passwordEncoder.matches("senha123", usuario.getSenha()));
         assertEquals(PapelUsuario.ROLE_CLIENTE, usuario.getPapel());
         assertEquals(StatusUsuario.PENDENTE, usuario.getStatus());
@@ -55,17 +58,21 @@ public class UsuarioServiceIntegrationTest {
 
     @Test
     void testFindByEmail() {
-        RegisterRequest request = new RegisterRequest("Maria Souza", "09876543211", "maria@example.com", "Rua B, 456", "senha456", null);
+        String uniqueCpf = UUID.randomUUID().toString().substring(0, 11).replaceAll("-", "");
+        String uniqueEmail = "maria_" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
+        RegisterRequest request = new RegisterRequest("Maria Souza", uniqueCpf, uniqueEmail, "Rua B, 456", "senha456", null);
         usuarioService.registerNewUser(request);
 
-        Optional<Usuario> foundUser = usuarioService.findByEmail("maria@example.com");
+        Optional<Usuario> foundUser = usuarioService.findByEmail(uniqueEmail);
         assertTrue(foundUser.isPresent());
         assertEquals("Maria Souza", foundUser.get().getNome());
     }
 
     @Test
     void testFindById() {
-        RegisterRequest request = new RegisterRequest("Pedro Lima", "11223344556", "pedro@example.com", "Rua C, 789", "senha789", null);
+        String uniqueCpf = UUID.randomUUID().toString().substring(0, 11).replaceAll("-", "");
+        String uniqueEmail = "pedro_" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
+        RegisterRequest request = new RegisterRequest("Pedro Lima", uniqueCpf, uniqueEmail, "Rua C, 789", "senha789", null);
         Usuario savedUser = usuarioService.registerNewUser(request);
 
         Optional<Usuario> foundUser = usuarioService.findById(savedUser.getId());
@@ -75,7 +82,9 @@ public class UsuarioServiceIntegrationTest {
 
     @Test
     void testUpdateSaldo() {
-        RegisterRequest request = new RegisterRequest("Ana Costa", "66554433221", "ana@example.com", "Rua D, 101", "senha101", null);
+        String uniqueCpf = UUID.randomUUID().toString().substring(0, 11).replaceAll("-", "");
+        String uniqueEmail = "ana_" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
+        RegisterRequest request = new RegisterRequest("Ana Costa", uniqueCpf, uniqueEmail, "Rua D, 101", "senha101", null);
         Usuario savedUser = usuarioService.registerNewUser(request);
 
         BigDecimal initialSaldo = savedUser.getSaldo();
@@ -88,9 +97,9 @@ public class UsuarioServiceIntegrationTest {
 
     @Test
     void testFindAllPendingClients() {
-        usuarioService.registerNewUser(new RegisterRequest("Cliente Pendente 1", "11111111111", "pendente1@example.com", "End1", "senha", null));
-        usuarioService.registerNewUser(new RegisterRequest("Cliente Ativo 1", "22222222222", "ativo1@example.com", "End2", "senha", null)).setStatus(StatusUsuario.ATIVO);
-        usuarioService.registerNewUser(new RegisterRequest("Cliente Pendente 2", "33333333333", "pendente2@example.com", "End3", "senha", null));
+        usuarioService.registerNewUser(new RegisterRequest("Cliente Pendente 1", UUID.randomUUID().toString().substring(0, 11).replaceAll("-", ""), "pendente1_" + UUID.randomUUID().toString().substring(0, 8) + "@unique.com", "End1", "senha", null));
+        usuarioService.registerNewUser(new RegisterRequest("Cliente Ativo 1", UUID.randomUUID().toString().substring(0, 11).replaceAll("-", ""), "ativo1_" + UUID.randomUUID().toString().substring(0, 8) + "@unique.com", "End2", "senha", null)).setStatus(StatusUsuario.ATIVO);
+        usuarioService.registerNewUser(new RegisterRequest("Cliente Pendente 2", UUID.randomUUID().toString().substring(0, 11).replaceAll("-", ""), "pendente2_" + UUID.randomUUID().toString().substring(0, 8) + "@unique.com", "End3", "senha", null));
 
         List<Usuario> pendingClients = usuarioService.findAllPendingClients();
         assertEquals(2, pendingClients.size());
@@ -99,9 +108,9 @@ public class UsuarioServiceIntegrationTest {
 
     @Test
     void testFindAllPendingAndActiveClients() {
-        usuarioService.registerNewUser(new RegisterRequest("Cliente Pendente 1", "11111111111", "pendente1@example.com", "End1", "senha", null));
-        usuarioService.registerNewUser(new RegisterRequest("Cliente Ativo 1", "22222222222", "ativo1@example.com", "End2", "senha", null)).setStatus(StatusUsuario.ATIVO);
-        usuarioService.registerNewUser(new RegisterRequest("Cliente Recusado 1", "33333333333", "recusado1@example.com", "End3", "senha", null)).setStatus(StatusUsuario.RECUSADO);
+        usuarioService.registerNewUser(new RegisterRequest("Cliente Pendente 1", UUID.randomUUID().toString().substring(0, 11).replaceAll("-", ""), "pendente1_active_" + UUID.randomUUID().toString().substring(0, 8) + "@unique.com", "End1", "senha", null));
+        usuarioService.registerNewUser(new RegisterRequest("Cliente Ativo 1", UUID.randomUUID().toString().substring(0, 11).replaceAll("-", ""), "ativo1_active_" + UUID.randomUUID().toString().substring(0, 8) + "@unique.com", "End2", "senha", null)).setStatus(StatusUsuario.ATIVO);
+        usuarioService.registerNewUser(new RegisterRequest("Cliente Recusado 1", UUID.randomUUID().toString().substring(0, 11).replaceAll("-", ""), "recusado1_active_" + UUID.randomUUID().toString().substring(0, 8) + "@unique.com", "End3", "senha", null)).setStatus(StatusUsuario.RECUSADO);
 
         List<Usuario> clients = usuarioService.findAllPendingAndActiveClients();
         assertEquals(2, clients.size());
@@ -111,7 +120,9 @@ public class UsuarioServiceIntegrationTest {
 
     @Test
     void testApproveClient() {
-        RegisterRequest request = new RegisterRequest("Cliente para Aprovar", "44444444444", "aprovar@example.com", "End4", "senha", null);
+        String uniqueCpf = UUID.randomUUID().toString().substring(0, 11).replaceAll("-", "");
+        String uniqueEmail = "aprovar_" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
+        RegisterRequest request = new RegisterRequest("Cliente para Aprovar", uniqueCpf, uniqueEmail, "End4", "senha", null);
         Usuario savedUser = usuarioService.registerNewUser(request);
 
         Usuario approvedUser = usuarioService.approveClient(savedUser.getId());
@@ -121,7 +132,9 @@ public class UsuarioServiceIntegrationTest {
 
     @Test
     void testReproveClient() {
-        RegisterRequest request = new RegisterRequest("Cliente para Reprovar", "55555555555", "reprovar@example.com", "End5", "senha", null);
+        String uniqueCpf = UUID.randomUUID().toString().substring(0, 11).replaceAll("-", "");
+        String uniqueEmail = "reprovar_" + UUID.randomUUID().toString().substring(0, 8) + "@example.com";
+        RegisterRequest request = new RegisterRequest("Cliente para Reprovar", uniqueCpf, uniqueEmail, "End5", "senha", null);
         Usuario savedUser = usuarioService.registerNewUser(request);
 
         Usuario reprovedUser = usuarioService.reproveClient(savedUser.getId());

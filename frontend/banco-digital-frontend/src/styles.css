@@ -30,14 +30,6 @@ body {
   min-height: 100vh;
 }
 
-/* Efeito Glassmorphism com as especificações do plano */
-.glassmorphism {
-  background: var(--glass-bg);
-  backdrop-filter: blur(10px);
-  border-radius: 12px;
-  border: 1px solid var(--glass-border);
-  box-shadow: 0 8px 24px var(--shadow-color);
-}
 
 /* Efeito de luz para botões e elementos interativos */
 .light-effect {
@@ -77,4 +69,42 @@ body {
     opacity: 1;
     transform: translateY(0);
   }
+}
+
+.animated-background {
+    position: fixed; /* Usar fixed para cobrir toda a viewport */
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-dark);
+    background-image:
+        linear-gradient(45deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent),
+        linear-gradient(-45deg, transparent 24%, rgba(255, 255, 255, 0.05) 25%, rgba(255, 255, 255, 0.05) 26%, transparent 27%, transparent 74%, rgba(255, 255, 255, 0.05) 75%, rgba(255, 255, 255, 0.05) 76%, transparent 77%, transparent);
+    background-size: 80px 80px;
+    z-index: -1; /* Colocar atrás do conteúdo */
+    opacity: 0.15;
+    animation: moveLight 60s linear infinite;
+}
+
+@keyframes moveLight {
+    0% { background-position: 0 0; }
+    100% { background-position: 1600px 1600px; }
+}
+
+.animated-background::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(circle 150px at var(--mouse-x, 50%) var(--mouse-y, 50%), rgba(255, 255, 255, 0.2) 0%, transparent 70%);
+    opacity: 0;
+    transition: opacity 0.3s ease-in-out;
+    pointer-events: none;
+}
+
+body:hover .animated-background::before { /* Alterado para body:hover */
+    opacity: 1;
 }

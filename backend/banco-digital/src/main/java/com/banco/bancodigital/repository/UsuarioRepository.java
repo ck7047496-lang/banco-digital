@@ -18,4 +18,5 @@ public interface UsuarioRepository extends JpaRepository<Usuario, Long> {
     List<Usuario> findByStatus(com.banco.bancodigital.model.StatusUsuario status);
     List<Usuario> findByPapelAndSituacaoCredito(PapelUsuario papel, SituacaoCredito situacaoCredito);
     List<Usuario> findByStatusIn(List<com.banco.bancodigital.model.StatusUsuario> statuses);
+    long countByPapel(PapelUsuario roleCliente);
 }
