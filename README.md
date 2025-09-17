@@ -20,7 +20,7 @@ https://github.com/user-attachments/assets/242d97cb-bd31-4baa-ae8b-bb703d9d2ef4
 *   **Testes:** Spring Boot Starter Test, JUnit
 
 ### Frontend (Angular)
-
+https://github.com/user-attachments/assets/304b14ea-3ec3-448c-9401-5fb842d42931
 *   **Framework:** Angular 17
 *   **Linguagem:** TypeScript
 *   **Estilização:** Tailwind CSS
