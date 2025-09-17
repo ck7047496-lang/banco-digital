@@ -104,7 +104,7 @@ O projeto segue uma arquitetura de microsserviços (ou uma aplicação monolíti
     Isso abrirá a interface do Cypress, onde você pode selecionar e executar os testes end-to-end.
 
 ## Estrutura de Pastas
-
+![Image](https://github.com/user-attachments/assets/914b4c3b-0db3-458a-9988-62628fa560c9)
 *   `backend/banco-digital`: Contém o código-fonte do backend Spring Boot.
     *   `src/main/java/com/banco/bancodigital`: Classes Java da aplicação.
     *   `src/main/resources`: Arquivos de configuração (ex: `application.properties`) e scripts de migração de banco de dados.
